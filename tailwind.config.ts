@@ -7,7 +7,11 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      padding: {
+        cont: '1.75rem',
+      },
+    },
   },
   plugins: [],
 } satisfies Config;

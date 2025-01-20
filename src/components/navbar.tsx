@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { RiCloseLargeFill } from 'react-icons/ri';
 import { LuUserRound } from 'react-icons/lu';
 import { IconContext } from 'react-icons';
+import { VscMenu } from 'react-icons/vsc';
 
 export default function Navbar() {
   const [isLarge, setIsLarge] = useState(window.innerWidth >= 768);
@@ -21,7 +22,7 @@ export default function Navbar() {
 
   return (
     <IconContext.Provider value={{ size: '25' }}>
-      <nav className="relative bg-slate-400 px-11 grid grid-cols-[1fr_auto_1fr] items-center min-h-24">
+      <nav className="font-serif relative bg-slate-400 px-cont grid grid-cols-[1fr_auto_1fr] items-center min-h-24">
         {isLarge ? (
           <div className="flex gap-6 text-xl">
             <Link href="/shop">Shop</Link>
@@ -30,6 +31,8 @@ export default function Navbar() {
         ) : (
           <DropdownButton />
         )}
+
+        {/*Logo */}
         <Link href="/">
           <Image
             className=""
@@ -39,26 +42,33 @@ export default function Navbar() {
             height="0"
           />
         </Link>
+
         <div className="flex justify-end gap-3">
           {isLarge && (
             <button>
               <LuUserRound />
             </button>
           )}
-          <button>
-            <MdOutlineShoppingBag />
-          </button>
+
           <Link href="/cart">
-            <IoSearch />
+            <MdOutlineShoppingBag />
           </Link>
+
+          <button>
+            <IoSearch />
+          </button>
         </div>
       </nav>
     </IconContext.Provider>
   );
 }
-
 function DropdownButton() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const SharedCss = 'absolute top-1/2 -translate-y-1/2';
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   const Links = [
     { name: 'Blog', href: '/blog' },
     { name: 'Shop', href: '/shop' },
@@ -66,14 +76,25 @@ function DropdownButton() {
     { name: 'Sign Up', href: '/signup' },
   ];
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
   return (
     <>
-      <button className="" onClick={toggleMenu}>
-        <MenuIcon isOpen={isOpen} />
+      <button className="w-6 mr-1" onClick={toggleMenu}>
+        <>
+          <VscMenu
+            className={`${SharedCss} transition-opacity ${
+              !isOpen ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+          <div
+            className={`${SharedCss} absolute transition-opacity ${
+              isOpen ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <RiCloseLargeFill />
+          </div>
+        </>
       </button>
+
       <ul
         className={`absolute top-full bg-slate-200 w-full block text-center transition-[max-height] duration-500 overflow-y-hidden ${
           isOpen ? 'max-h-64' : 'max-h-0'
@@ -85,28 +106,6 @@ function DropdownButton() {
           </li>
         ))}
       </ul>
-    </>
-  );
-}
-
-function MenuIcon({ isOpen }: { isOpen: boolean }) {
-  const SharedCss =
-    'absolute transition-opacity duration-300 top-1/2 -translate-y-1/2';
-  return (
-    <>
-      <div
-        className={`${SharedCss} flex flex-col justify-between w-6 h-5  ${
-          !isOpen ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <span className="block w-6 h-[2.5px] bg-black rounded-sm"></span>
-        <span className="block w-6 h-[2.5px] bg-black rounded-sm"></span>
-        <span className="block w-6 h-[2.5px] bg-black rounded-sm"></span>
-      </div>
-
-      <div className={`${SharedCss} ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
-        <RiCloseLargeFill />
-      </div>
     </>
   );
 }
