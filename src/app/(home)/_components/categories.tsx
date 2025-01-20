@@ -4,20 +4,27 @@ import Image from 'next/image';
 
 export default function Categories() {
   return (
-    <section className="p-cont bg-cyan-200">
+    <section className="px-cont py-20 bg-cyan-200 text-lg">
       <h3 className="text-4xl font-semibold text-center mb-3">
         Explore Our Eco-Friendly Product Categories
       </h3>
-      <p className="text-center text-lg mb-10 max-w-[60ch] mx-auto">
+      <p className="text-center  mb-10 max-w-[60ch] mx-auto">
         At GreenHaven Market, we offer a diverse range of sustainable products
         designed to enhance your eco-conscious lifestyle. Discover how our
         carefully curated selections contribute to a healthier planet.
       </p>
       <CardsList />
-      <Link href="/shop">Shop</Link>
-      <Link href="">
-        Learn more <MdKeyboardArrowRight />
-      </Link>
+      <div className="flex items-center gap-5">
+        <Link
+          href="/shop"
+          className="px-3 py-2 border-2 border-black font-medium w-20 bloc text-center"
+        >
+          Shop
+        </Link>
+        <Link href="/blog" className="">
+          Learn more <MdKeyboardArrowRight className="inline-block" />
+        </Link>
+      </div>
     </section>
   );
 }
@@ -70,14 +77,14 @@ function Card({
   content: string;
 }) {
   return (
-    <article className="shrink grow basis-10 min-w-44 max-w-72">
+    <article className="shrink grow basis-10 min-w-44 max-w-96 mb-10">
       <div>
         <Image
           src={imageURL}
           alt="card image"
           width="100"
           height="0"
-          className="w-full"
+          className="w-full mb-4"
         />
       </div>
       <div className="">
