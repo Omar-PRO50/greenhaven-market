@@ -9,7 +9,13 @@ export default {
   theme: {
     extend: {
       padding: {
-        cont: '1.75rem',
+        largeCont: '5rem',
+      },
+      colors: {
+        main: {
+          DEFAULT: '#184508',
+          light: '#7A8E17',
+        },
       },
     },
   },

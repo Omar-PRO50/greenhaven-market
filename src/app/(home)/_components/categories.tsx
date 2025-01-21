@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function Categories() {
   return (
-    <section className="px-cont py-20 bg-cyan-200 text-lg">
+    <section className="px-largeCont py-20 text-lg">
       <h3 className="text-4xl font-semibold text-center mb-3">
         Explore Our Eco-Friendly Product Categories
       </h3>
@@ -30,7 +30,7 @@ export default function Categories() {
 }
 
 function CardsList() {
-  const ProductsList = [
+  const categoriesList = [
     {
       imageURL: '/placeholder.png',
       header: 'Reusable Household Goods for Everyday Use',
@@ -60,7 +60,7 @@ function CardsList() {
 
   return (
     <div className={`flex gap-4 flex-wrap justify-center`}>
-      {ProductsList.map(({ imageURL, header, content }, i) => (
+      {categoriesList.map(({ imageURL, header, content }, i) => (
         <Card key={i} imageURL={imageURL} header={header} content={content} />
       ))}
     </div>
