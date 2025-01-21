@@ -65,7 +65,7 @@ export default function Navbar() {
     >
       <header
         ref={headerRef}
-        className="relative top-0 transition-transform duration-300 z-50 shadow-md bg-white px-largeCont py-7 grid grid-cols-[1fr_auto_1fr] items-center text-main-light underline-offset-2"
+        className="relative top-0 transition-transform duration-300 z-50 shadow-md bg-background px-largeCont py-7 grid grid-cols-[1fr_auto_1fr] items-center text-main-light underline-offset-2"
       >
         {isLarge ? (
           <nav className="flex gap-6 text-lg">

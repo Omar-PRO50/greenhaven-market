@@ -16,6 +16,7 @@ export default {
           DEFAULT: '#184508',
           light: '#7A8E17',
         },
+        background: '#ffe',
       },
     },
   },

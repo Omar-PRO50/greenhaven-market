@@ -4,7 +4,7 @@ import Blogs from '@/app/(home)/_components/blogs';
 
 export default function Home() {
   return (
-    <main className="home-page">
+    <main className="home-page bg-background">
       <Hero />
       <section className="bg-main text-white text-center p-largeCont text-3xl font-semibold">
         <h2 className="max-w-[49ch] m-auto">
