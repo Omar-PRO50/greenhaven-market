@@ -1,30 +1,30 @@
-import Link from 'next/link';
-import { MdKeyboardArrowRight } from 'react-icons/md';
-import Image from 'next/image';
+import Link from "next/link";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import Image from "next/image";
 
 export default function Categories() {
   return (
-    <section className="px-largeCont py-20 text-lg text-main">
-      <h3 className="text-4xl font-semibold text-center mb-3">
+    <section className="px-cont-sm py-20 text-lg text-main">
+      <h3 className="mb-3 text-center text-4xl font-semibold">
         Explore Our Eco-Friendly Product Categories
       </h3>
-      <p className="text-center  mb-10 max-w-[70ch] mx-auto">
+      <p className="mx-auto mb-10 max-w-[70ch] text-center">
         At GreenHaven Market, we offer a diverse range of sustainable products
         designed to enhance your eco-conscious lifestyle. Discover how our
         carefully curated selections contribute to a healthier planet.
       </p>
-      <div className="w-fit m-auto">
+      <div className="m-auto w-fit">
         <CardsList />
         <div className="flex items-center gap-5">
           <Link
             href="/shop"
-            className="px-3 py-2 border-2 border-black font-medium w-20 bloc text-center hover:bg-main hover:text-white transition-colors"
+            className="bloc w-20 border-2 border-black px-3 py-2 text-center font-medium transition-colors hover:bg-main hover:text-white"
           >
             Shop
           </Link>
           <Link
             href="/blog"
-            className="transition-all hover:text-xl text-center px-2"
+            className="px-2 text-center transition-all hover:text-xl"
           >
             Learn more <MdKeyboardArrowRight className="inline-block" />
           </Link>
@@ -37,27 +37,27 @@ export default function Categories() {
 function CardsList() {
   const categoriesList = [
     {
-      imageURL: '/placeholder.png',
-      header: 'Reusable Household Goods for Everyday Use',
-      content: 'Make a positive impact with our durable, reusable items.',
-      categoryLink: '',
+      imageURL: "/placeholder.png",
+      header: "Reusable Household Goods for Everyday Use",
+      content: "Make a positive impact with our durable, reusable items.",
+      categoryLink: "",
     },
     {
-      imageURL: '/placeholder.png',
-      header: 'Reusable Household Goods for Everyday Use',
-      content: 'Make a positive impact with our durable, reusable items.',
-      categoryLink: '',
+      imageURL: "/placeholder.png",
+      header: "Organic Skincare for a Natural Glow",
+      content: "Nourish your skin with our eco-friendly skincare line.",
+      categoryLink: "",
     },
     {
-      imageURL: '/placeholder.png',
-      header: 'Reusable Household Goods for Everyday Use',
-      content: 'Make a positive impact with our durable, reusable items.',
-      categoryLink: '',
+      imageURL: "/placeholder.png",
+      header: "Eco-Friendly Clothing for Sustainable Fashion",
+      content: "Dress sustainably with our stylish, ethical apparel.",
+      categoryLink: "",
     },
   ];
 
   return (
-    <div className="flex lg:gap-7 lg:flex-row flex-col items-center">
+    <div className="flex flex-col items-center lg:flex-row lg:items-start lg:gap-7">
       {categoriesList.map((category, index) => (
         <Card key={index} {...category} />
       ))}
@@ -77,19 +77,19 @@ function Card({
   categoryLink: string;
 }) {
   return (
-    <article className="shrink grow basis-10 min-w-44 mb-10 max-w-[31.25rem] group hover:scale-[1.01] transition-transform">
+    <article className="group mb-10 w-full min-w-44 max-w-[31.25rem] shrink grow basis-10">
       <Link href={categoryLink}>
-        <div className="w-full aspect-[2/1] rounded-lg mb-4 overflow-hidden">
+        <div className="mb-4 aspect-[2/1] w-full overflow-hidden rounded-lg">
           <Image
             src={imageURL}
             alt="card image"
             width="100"
             height="0"
-            className=" object-cover w-full h-full transition-transform group-hover:scale-[1.03]"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
           />
         </div>
         <div className="pr-2">
-          <h4 className="text-xl font-semibold group-hover:underline">
+          <h4 className="text-xl font-semibold underline decoration-transparent transition-colors group-hover:decoration-main">
             {header}
           </h4>
           <p className="text-base text-main-light">{content}</p>

@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
-import './globals.css';
-import Navbar from '@/components/navbar';
+import type { Metadata } from "next";
+import "./globals.css";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: 'GreenHaven Market',
-  description: 'GreenHaven Market',
+  title: "GreenHaven Market",
+  description: "GreenHaven Market",
 };
 
 export default function RootLayout({
