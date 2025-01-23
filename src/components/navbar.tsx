@@ -66,7 +66,7 @@ export default function Navbar() {
     >
       <header
         ref={headerRef}
-        className="px-cont-sm md:px-cont-md lg:px-cont-lg xl:px-cont-xl relative top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center bg-background py-7 text-main-light underline-offset-2 shadow-md transition-transform duration-300"
+        className="relative top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center bg-background px-cont-sm py-7 text-main-light underline-offset-2 shadow-md transition-transform duration-300 md:px-cont-md lg:px-cont-lg xl:px-cont-xl"
       >
         {isLarge ? (
           <nav className="flex gap-6 text-lg">
@@ -158,7 +158,7 @@ function DropdownButton({
 
       {/* Dropdown */}
       <ul
-        className={`absolute top-full block w-full overflow-y-hidden bg-white text-center shadow-md transition-[max-height] duration-500 ${
+        className={`absolute top-full block w-full overflow-y-hidden bg-inherit text-center shadow-md transition-[max-height] duration-500 ${
           isMenuOpen ? "max-h-64" : "max-h-0"
         }`}
       >

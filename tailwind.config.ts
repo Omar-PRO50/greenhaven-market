@@ -21,6 +21,7 @@ export default {
           light: "#7A8E17",
         },
         background: "#ffe",
+        disabled: "#97ab87",
       },
     },
   },

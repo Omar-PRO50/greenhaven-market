@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="home-page bg-background">
       <Hero />
-      <section className="p-cont-sm md:p-cont-md lg:p-cont-lg xl:p-cont-xl bg-main text-center text-3xl font-semibold text-white">
+      <section className="bg-main p-cont-sm text-center text-3xl font-semibold text-white md:p-cont-md lg:p-cont-lg xl:p-cont-xl">
         <h2 className="m-auto max-w-[49ch]">
           Our products are safe, minimal, and easy on the planet. They last when
           you need them, and biodegrade when you don’t.
@@ -14,6 +14,7 @@ export default function Home() {
       </section>
       <Categories />
       <Article />
+      <div className="h-[500rem]"></div>
     </main>
   );
 }
