@@ -1,6 +1,7 @@
 import Hero from "@/app/(home)/_components/hero";
 import Categories from "@/app/(home)/_components/categories";
 import Article from "@/app/(home)/_components/articles";
+import Mission from "./_components/mission";
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       </section>
       <Categories />
       <Article />
-      <div className="h-[500rem]"></div>
+      <Mission />
     </main>
   );
 }

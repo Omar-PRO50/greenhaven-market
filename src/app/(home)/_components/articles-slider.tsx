@@ -74,32 +74,30 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
   };
   return (
     <div className="">
-      <div>
-        <div
-          ref={sliderRef}
-          className="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-5 pt-4 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl"
+      <div
+        ref={sliderRef}
+        className="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-10 pt-4 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl"
+      >
+        {articles.map((article) => (
+          <ArticleCard key={article.id} {...article} cardWidth={cardWidth} />
+        ))}
+        <article
+          style={{
+            minWidth: cardWidth + "px",
+            minHeight: (cardWidth * 5) / 4 + "px",
+          }}
         >
-          {articles.map((article) => (
-            <ArticleCard key={article.id} {...article} cardWidth={cardWidth} />
-          ))}
-          <article
-            style={{
-              minWidth: cardWidth + "px",
-              minHeight: (cardWidth * 5) / 4 + "px",
-            }}
-            className={``}
+          <Link
+            href="/blog"
+            className="group flex h-full items-center justify-center overflow-hidden rounded-2xl bg-[#F5F5E4] transition-all hover:scale-[1.03] hover:shadow-lg"
           >
-            <Link
-              href="/blog"
-              className="group flex h-full items-center justify-center overflow-hidden rounded-2xl bg-[#F5F5E4] transition-all hover:scale-[1.03] hover:shadow-xl"
-            >
-              <p className="text-lg font-bold underline transition-colors hover:decoration-transparent">
-                View All
-              </p>
-            </Link>
-          </article>
-        </div>
+            <p className="text-lg font-bold underline transition-colors hover:decoration-transparent">
+              View All
+            </p>
+          </Link>
+        </article>
       </div>
+
       {/* arrows */}
       <div className="flex justify-center">
         <button
@@ -140,11 +138,11 @@ function ArticleCard({
         minWidth: cardWidth + "px",
         minHeight: (cardWidth * 5) / 4 + "px",
       }}
-      className={``}
+      className={`z-20`}
     >
       <Link
         href={`/article/${link}`}
-        className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F5E4] transition-all hover:scale-[1.03] hover:shadow-xl"
+        className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F5E4] transition-all hover:scale-[1.03] hover:shadow-lg"
       >
         <Image
           src={imageURL}
