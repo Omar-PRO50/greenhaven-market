@@ -7,15 +7,11 @@ import { MdOutlineShoppingBag } from "react-icons/md";
 import { useState, useEffect, useRef } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { LuUserRound } from "react-icons/lu";
-import { IconContext, IconType } from "react-icons";
 import { IoMdMenu } from "react-icons/io";
-
-//on scroll down : check if scrolled past the navbar ? next : nothing
-//next:
+import ThemeProvider from "@/theme-providers/navbar-icon-provider";
 
 export default function Navbar() {
   const headerRef = useRef<HTMLHeadElement>(null);
-  const [isLarge, setIsLarge] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lastScroll, setlastScroll] = useState(0);
 
@@ -29,12 +25,12 @@ export default function Navbar() {
           if (window.scrollY > headerRef.current.offsetHeight) {
             //past header
             if (currentScroll > lastScroll) {
-              headerRef.current.classList.add("-translate-y-full");
               //down
+              headerRef.current.classList.add("-translate-y-full");
             } else {
+              //up
               headerRef.current.classList.add("sticky");
               headerRef.current.classList.remove("-translate-y-full");
-              //up
             }
           } else if (currentScroll === 0) {
             headerRef.current.classList.remove("sticky");
@@ -51,38 +47,29 @@ export default function Navbar() {
   }, [lastScroll, isMenuOpen]);
 
   useEffect(() => {
-    setIsLarge(window.innerWidth >= 768);
-    const handleResize = () => setIsLarge(window.innerWidth >= 768);
+    function handleResize() {
+      if (window.innerWidth >= 768) setIsMenuOpen(false);
+    }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <IconContext.Provider
-      value={{
-        size: "25",
-        className: "",
-      }}
-    >
+    <ThemeProvider>
       <header
         ref={headerRef}
         className="relative top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center bg-background px-cont-sm py-7 text-main-light underline-offset-2 shadow-md transition-transform duration-300 md:px-cont-md lg:px-cont-lg xl:px-cont-xl"
       >
-        {isLarge ? (
-          <nav className="flex gap-6 text-lg">
-            <Link href="/shop" className="hover:underline">
-              Shop
-            </Link>
-            <Link href="/blog" className="hover:underline">
-              Blog
-            </Link>
-          </nav>
-        ) : (
-          <DropdownButton
-            isMenuOpen={isMenuOpen}
-            setIsMenuOpen={setIsMenuOpen}
-          />
-        )}
+        <nav className="hidden gap-6 text-lg md:flex">
+          <Link href="/shop" className="hover:underline">
+            Shop
+          </Link>
+          <Link href="/blog" className="hover:underline">
+            Blog
+          </Link>
+        </nav>
+
+        <DropdownButton isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
         {/*Logo */}
         <h1>
@@ -98,24 +85,14 @@ export default function Navbar() {
         </h1>
 
         <div className="flex justify-end gap-6">
-          {isLarge && <HeaderIcon Icon={LuUserRound} />}
+          <LuUserRound className="hidden md:block" />
 
-          <HeaderIcon Icon={MdOutlineShoppingBag} />
+          <MdOutlineShoppingBag />
 
-          <HeaderIcon Icon={IoSearch} />
+          <IoSearch />
         </div>
       </header>
-    </IconContext.Provider>
-  );
-}
-
-function HeaderIcon({ Icon }: { Icon: IconType }) {
-  return (
-    <span className="flex size-7 items-center justify-center transition-transform hover:scale-[1.1]">
-      <button>
-        <Icon />
-      </button>
-    </span>
+    </ThemeProvider>
   );
 }
 
@@ -138,27 +115,23 @@ function DropdownButton({
 
   return (
     <>
-      <button
-        className="group mr-1 w-fit transition-transform"
-        onClick={toggleMenu}
-      >
+      <button className="mr-1 w-fit md:hidden" onClick={toggleMenu}>
         <IoMdMenu
-          className={`transition-all ${
-            !isMenuOpen ? "opacity-100" : "opacity-0"
-          } group-hover:scale-[1.1]`}
+          className={`absolute top-1/2 -translate-y-1/2 ${!isMenuOpen ? "z-20 opacity-100" : "z-10 opacity-0"}`}
         />
 
         <RiCloseLargeFill
           size={23}
-          className={`transition-all ${
-            isMenuOpen ? "opacity-100" : "opacity-0"
-          } absolute top-1/2 -translate-y-1/2 hover:scale-[1.1]`}
+          className={`absolute top-1/2 -translate-y-1/2 ${
+            isMenuOpen ? "z-20 opacity-100" : "z-10 opacity-0"
+          }`}
         />
       </button>
 
       {/* Dropdown */}
       <ul
-        className={`absolute top-full block w-full overflow-y-hidden bg-inherit text-center shadow-md transition-[max-height] duration-500 ${
+        style={{ top: "calc(100% - 1px)" }}
+        className={`absolute block w-full overflow-y-hidden bg-background bg-inherit text-center shadow-md transition-[max-height] duration-500 md:hidden ${
           isMenuOpen ? "max-h-64" : "max-h-0"
         }`}
       >

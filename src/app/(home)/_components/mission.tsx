@@ -6,7 +6,7 @@ export default function Mission() {
       <h3 className="text-3xl font-semibold">
         We raise the bar for what a sustainable product looks like
       </h3>
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 lg:flex-row">
         <Card
           imgURL="/placeholder.png"
           title="Beyond Single Use"
