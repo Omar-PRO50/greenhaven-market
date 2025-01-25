@@ -2,7 +2,7 @@
 import { MdOutlineShoppingBag } from "react-icons/md";
 export default function CartButton() {
   return (
-    <button>
+    <button type="button">
       <MdOutlineShoppingBag />
     </button>
   );

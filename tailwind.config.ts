@@ -20,8 +20,14 @@ export default {
           DEFAULT: "#184508",
           light: "#7A8E17",
         },
-        background: "#ffe",
+        background: {
+          DEFAULT: "#ffe",
+          dark: "#ecedd5",
+        },
         disabled: "#97ab87",
+      },
+      screens: {
+        "2md": "860px",
       },
     },
   },

@@ -5,7 +5,7 @@ import Mission from "./_components/mission";
 
 export default function Home() {
   return (
-    <main className="home-page bg-background">
+    <main className="">
       <Hero />
       <section className="bg-main p-cont-sm text-center text-3xl font-semibold text-white md:p-cont-md lg:p-cont-lg xl:p-cont-xl">
         <h2 className="m-auto max-w-[49ch]">

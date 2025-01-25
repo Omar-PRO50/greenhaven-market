@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Categories() {
   return (
-    <section className="px-cont-sm md:px-cont-md lg:px-cont-lg xl:px-cont-xl py-20 text-lg text-main">
+    <section className="px-cont-sm py-20 text-lg text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
       <h3 className="mb-3 text-center text-4xl font-semibold">
         Explore Our Eco-Friendly Product Categories
       </h3>

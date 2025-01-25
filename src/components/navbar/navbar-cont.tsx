@@ -49,5 +49,12 @@ export default function NavbarCont({
     return () => window.removeEventListener("resize", handleResize);
   }, [menu]);
 
-  return <header ref={headerRef}>{children}</header>;
+  return (
+    <header
+      ref={headerRef}
+      className="top-0 z-50 transition-transform duration-300"
+    >
+      {children}
+    </header>
+  );
 }

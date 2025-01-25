@@ -20,7 +20,11 @@ export default function DropdownButton({}) {
 
   return (
     <>
-      <button className="mr-1 w-fit md:hidden" onClick={toggleMenu}>
+      <button
+        type="button"
+        className="mr-1 w-fit md:hidden"
+        onClick={toggleMenu}
+      >
         <IoMdMenu
           className={`absolute top-1/2 -translate-y-1/2 ${!menu!.isMenuOpen ? "z-20 opacity-100" : "z-10 opacity-0"}`}
         />
