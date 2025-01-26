@@ -21,6 +21,7 @@ export default function DropdownButton({}) {
   return (
     <>
       <button
+        name="toggleMenu"
         type="button"
         className="mr-1 w-fit md:hidden"
         onClick={toggleMenu}

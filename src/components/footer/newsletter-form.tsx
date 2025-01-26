@@ -2,6 +2,7 @@
 import { useFormStatus } from "react-dom";
 import { subscribeNewsletter } from "@/app/actions";
 import { useActionState, useState } from "react";
+import Form from "next/form";
 
 export default function NewsletterForm() {
   const [state, formAction] = useActionState(subscribeNewsletter, {
@@ -16,7 +17,7 @@ export default function NewsletterForm() {
       Thanks for subscribing to our Newsletter!
     </div>
   ) : (
-    <form action={formAction} className="max-w-md">
+    <Form action={formAction} className="max-w-md">
       <h5 className="text-xl font-medium">Subscribe to Our Newsletter</h5>
       <p className="mb-5 text-sm">
         Stay informed about our latest sustainable products and offers.
@@ -81,7 +82,7 @@ export default function NewsletterForm() {
       >
         {state.message}
       </p>
-    </form>
+    </Form>
   );
 }
 
@@ -90,6 +91,7 @@ function SubmitButton() {
 
   return (
     <button
+      name="submit"
       type="submit"
       disabled={pending}
       className="rounded bg-background px-4 py-2 text-main transition-colors hover:bg-background-dark disabled:bg-disabled"

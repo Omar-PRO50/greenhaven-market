@@ -101,8 +101,10 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
       {/* arrows */}
       <div className="flex justify-center">
         <button
+          name="slider-next"
+          aria-label="Next slide"
           onClick={() => scrollByOneSnap("left")}
-          className="disabled:text-disabled transition-transform hover:scale-[1.1] disabled:scale-100 disabled:cursor-not-allowed"
+          className="transition-transform hover:scale-[1.1] disabled:scale-100 disabled:cursor-not-allowed disabled:text-disabled"
           disabled={currentScroll + 1 === 1}
         >
           <MdKeyboardArrowLeft size={30} />
@@ -113,8 +115,10 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
         </div>
 
         <button
+          name="slider-prev"
+          aria-label="Previous slide"
           onClick={() => scrollByOneSnap("right")}
-          className="disabled:text-disabled transition-transform hover:scale-[1.1] disabled:scale-100 disabled:cursor-not-allowed"
+          className="transition-transform hover:scale-[1.1] disabled:scale-100 disabled:cursor-not-allowed disabled:text-disabled"
           disabled={currentScroll + 1 === scrollsCount}
         >
           <MdKeyboardArrowRight size={30} />
@@ -144,13 +148,14 @@ function ArticleCard({
         href={`/article/${link}`}
         className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F5E4] transition-all hover:scale-[1.03] hover:shadow-lg"
       >
-        <Image
-          src={imageURL}
-          alt="article image"
-          width="200"
-          height="1"
-          className="aspect-[2] w-full object-cover"
-        />
+        <div className="relative aspect-[2] w-full">
+          <Image
+            src={imageURL}
+            alt="article image"
+            fill
+            className="object-cover"
+          />
+        </div>
         <div className="flex grow flex-col justify-between gap-5 p-8">
           <div className="flex flex-col gap-3">
             <h4>{title}</h4>

@@ -79,13 +79,12 @@ function Card({
   return (
     <article className="group mb-10 w-full min-w-44 max-w-[31.25rem] shrink grow basis-10">
       <Link href={categoryLink}>
-        <div className="mb-4 aspect-[2/1] w-full overflow-hidden rounded-lg">
+        <div className="relative mb-4 aspect-[2/1]">
           <Image
             src={imageURL}
             alt="card image"
-            width="100"
-            height="0"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            fill
+            className="rounded-lg object-cover transition-transform duration-500 group-hover:scale-[1.05]"
           />
         </div>
         <div className="pr-2">

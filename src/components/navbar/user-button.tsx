@@ -3,7 +3,7 @@ import { LuUserRound } from "react-icons/lu";
 
 export default function UserButton() {
   return (
-    <button type="button" className="">
+    <button name="user" type="button" className="">
       <LuUserRound />
     </button>
   );

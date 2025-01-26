@@ -33,7 +33,6 @@ export default function Navbar() {
 
             <Link href="/">
               <Image
-                // className="h-auto"
                 src="/logo.svg"
                 alt="GreenHaven Market Logo"
                 width="180"

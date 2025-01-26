@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="px-cont-sm md:px-cont-md lg:px-cont-lg xl:px-cont-xl flex min-h-[42rem] flex-col items-center pt-32 text-center text-main">
+    <section className="relatvie flex min-h-[42rem] flex-col items-center px-cont-sm pt-32 text-center text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
       <h3 className="mb-3 max-w-[27ch] text-4xl font-bold">
         Welcome to GreenHaven Market - Shop Sustainably
       </h3>
