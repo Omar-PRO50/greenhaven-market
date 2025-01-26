@@ -15,20 +15,21 @@ export default function NavbarCont({
       const currentScroll = window.scrollY;
       if (headerRef.current) {
         if (menu!.isMenuOpen) {
-          headerRef.current.classList.add("sticky");
+          headerRef.current.classList.add("sticky", "shadow-md");
         } else {
           if (window.scrollY > headerRef.current.offsetHeight) {
             //past header
             if (currentScroll > lastScroll) {
-              headerRef.current.classList.add("-translate-y-full");
               //down
+              headerRef.current.classList.add("-translate-y-full");
             } else {
-              headerRef.current.classList.add("sticky");
-              headerRef.current.classList.remove("-translate-y-full");
               //up
+              headerRef.current.classList.add("sticky", "shadow-md");
+              headerRef.current.classList.remove("-translate-y-full");
             }
           } else if (currentScroll === 0) {
-            headerRef.current.classList.remove("sticky");
+            //at the top
+            headerRef.current.classList.remove("sticky", "shadow-md");
           }
         }
       }

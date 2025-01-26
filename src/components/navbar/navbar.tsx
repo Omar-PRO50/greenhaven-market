@@ -16,7 +16,7 @@ export default function Navbar() {
     <DropdownProvider>
       <IconThemeProvider>
         <NavbarCont>
-          <div className="relative grid grid-cols-[1fr_auto_1fr] items-center bg-background px-cont-sm py-7 text-main-light underline-offset-2 shadow-md md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
+          <div className="relative grid grid-cols-[1fr_auto_1fr] items-center bg-background px-cont-sm py-7 text-main-light underline-offset-2 md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
             <nav className="hidden gap-6 text-lg md:flex">
               <Link href="/shop" className="hover:underline">
                 Shop
