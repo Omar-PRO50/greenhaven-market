@@ -37,19 +37,20 @@ export default function Categories() {
 function CardsList() {
   const categoriesList = [
     {
-      imageURL: "/placeholder.png",
+      imageURL: "/household-goods-category.jpg",
       header: "Reusable Household Goods for Everyday Use",
       content: "Make a positive impact with our durable, reusable items.",
       categoryLink: "",
     },
     {
-      imageURL: "/placeholder.png",
+      imageURL: "/skincare-category.jpg",
       header: "Organic Skincare for a Natural Glow",
       content: "Nourish your skin with our eco-friendly skincare line.",
       categoryLink: "",
+      imgPosition: "object-[50%_35%]",
     },
     {
-      imageURL: "/placeholder.png",
+      imageURL: "/clothing-category.jpg",
       header: "Eco-Friendly Clothing for Sustainable Fashion",
       content: "Dress sustainably with our stylish, ethical apparel.",
       categoryLink: "",
@@ -70,25 +71,27 @@ function Card({
   header,
   content,
   categoryLink,
+  imgPosition = "",
 }: {
   imageURL: string;
   header: string;
   content: string;
   categoryLink: string;
+  imgPosition?: string;
 }) {
   return (
     <article className="group mb-10 w-full min-w-44 max-w-[31.25rem] shrink grow basis-10">
       <Link href={categoryLink}>
-        <div className="relative mb-4 aspect-[2/1]">
+        <div className="relative mb-4 aspect-[2/1] overflow-hidden">
           <Image
             src={imageURL}
             alt="card image"
             fill
-            className="rounded-lg object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            className={`rounded-lg object-cover transition-transform duration-500 group-hover:scale-[1.05] ${imgPosition}`}
           />
         </div>
         <div className="pr-2">
-          <h4 className="text-xl font-semibold underline decoration-transparent transition-colors group-hover:decoration-main">
+          <h4 className="text-xl font-semibold underline decoration-transparent transition-colors hover:underline group-hover:decoration-main">
             {header}
           </h4>
           <p className="text-base text-main-light">{content}</p>

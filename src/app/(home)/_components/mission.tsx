@@ -8,17 +8,17 @@ export default function Mission() {
       </h3>
       <div className="flex flex-col gap-4 lg:flex-row">
         <Card
-          imgURL="/placeholder.png"
+          imgURL="/globe.png"
           title="Beyond Single Use"
           content="We reduce the need for single-use plastic through sustainable versions of every day products."
         />
         <Card
-          imgURL="/placeholder.png"
+          imgURL="/leaves.png"
           title="Minimal, Natural Ingredients"
           content="All of our products are made with safe, non-toxic ingredients, most have only 5 natural ingredients or less!"
         />
         <Card
-          imgURL="/placeholder.png"
+          imgURL="/cycle.png"
           title="Circular Packaging"
           content="All of our packaging is 100% recyclable and most can be composted directly in your backyard!"
         />
@@ -38,7 +38,7 @@ function Card({
 }) {
   return (
     <div className="flex flex-1 flex-col items-center gap-4 overflow-hidden rounded-2xl border-2 border-main p-10 text-center">
-      <Image src={imgURL} alt={title} width="100" height="10" className="" />
+      <Image src={imgURL} alt={title} width="70" height="10" className="" />
       <h4 className="font-semibold">{title}</h4>
       <p className="font-light">{content}</p>
     </div>

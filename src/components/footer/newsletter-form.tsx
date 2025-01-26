@@ -19,7 +19,7 @@ export default function NewsletterForm() {
   ) : (
     <Form action={formAction} className="max-w-md">
       <h5 className="text-xl font-medium">Subscribe to Our Newsletter</h5>
-      <p className="mb-5 text-sm">
+      <p className="mb-3 text-sm">
         Stay informed about our latest sustainable products and offers.
       </p>
 
