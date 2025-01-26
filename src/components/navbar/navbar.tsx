@@ -17,12 +17,15 @@ export default function Navbar() {
       <IconThemeProvider>
         <NavbarCont>
           <div className="relative grid grid-cols-[1fr_auto_1fr] items-center bg-background px-cont-sm py-7 text-main-light underline-offset-2 md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
-            <nav className="hidden gap-6 text-lg md:flex">
+            <nav className="text-md hidden gap-6 md:flex">
               <Link href="/shop" className="hover:underline">
                 Shop
               </Link>
               <Link href="/blog" className="hover:underline">
                 Blog
+              </Link>
+              <Link href="/contact-us" className="hover:underline">
+                Contact Us
               </Link>
               <Link href="/about" className="hover:underline">
                 About Us
@@ -41,13 +44,13 @@ export default function Navbar() {
             </Link>
 
             <div className="flex justify-end gap-6">
-              <span className="hidden items-center md:flex">
-                <UserButton />
-              </span>
+              <SearchButton />
 
               <CartButton />
 
-              <SearchButton />
+              <span className="hidden items-center md:flex">
+                <UserButton />
+              </span>
             </div>
           </div>
         </NavbarCont>
