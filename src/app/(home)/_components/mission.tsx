@@ -38,7 +38,7 @@ function Card({
 }) {
   return (
     <div className="flex flex-1 flex-col items-center gap-4 overflow-hidden rounded-2xl border-2 border-main p-10 text-center">
-      <Image src={imgURL} alt={title} width="70" height="10" className="" />
+      <Image src={imgURL} alt={title} width="70" height="70" />
       <h4 className="font-semibold">{title}</h4>
       <p className="font-light">{content}</p>
     </div>

@@ -88,6 +88,7 @@ function Card({
             alt="card image"
             fill
             className={`rounded-lg object-cover transition-transform duration-500 group-hover:scale-[1.05] ${imgPosition}`}
+            sizes="31.25rem"
           />
         </div>
         <div className="pr-2">

@@ -60,6 +60,7 @@ function ArticleCard(props: ArticleCardProps) {
           <>
             <div className="relative aspect-[2] w-full">
               <Image
+                sizes="88vw"
                 src={props.imageURL}
                 alt="article image"
                 fill
