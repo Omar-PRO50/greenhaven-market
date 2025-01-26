@@ -1,8 +1,9 @@
 import Link from "next/link";
-import articles from "@/data/articles.json";
+import { getLatestArticles } from "@/app/actions";
 import ArticlesSlider from "./articles-slider";
 
-export default function Article() {
+export default async function Articles() {
+  const articles = await getLatestArticles();
   return (
     <section className="py-20 text-main">
       <header className="mb-5 flex items-end gap-4 px-cont-sm md:px-cont-md lg:px-cont-lg xl:px-cont-xl">

@@ -16,10 +16,43 @@ type Article = {
   readTime: string;
   link: string;
 };
+// function handleResize() {
+//   const windowWidth = window.innerWidth;
+//   const paddings = [16, 32, 64, 80];
+//   const gap = 16;
+//   const fixedVal = 16;
+//   //defualt
+//   let cardsCount = 1;
+//   //xl:
+//   if (windowWidth >= 1280) cardsCount = 4;
+//   //lg:
+//   else if (windowWidth >= 1024) cardsCount = 3;
+//   //md
+//   else if (windowWidth >= 768) cardsCount = 2;
+
+//   const newCardWidth =
+//     (windowWidth -
+//       paddings[cardsCount - 1] -
+//       cardsCount * gap -
+//       Math.max(paddings[cardsCount - 1] - fixedVal, 60)) /
+//     cardsCount;
+
+//   setCardWidth(newCardWidth);
+//   setScrollsCount(-cardsCount + 8);
+// }
+// function f() {
+//   return (
+//     <div
+//       style={{ minWidth: "calc((100%) / )" + "px" }}
+//       className="min-w-defautl-article-card"
+//     ></div>
+//   );
+// }
+// f();
 
 export default function ArticlesSlider({ articles }: { articles: Article[] }) {
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(1);
+  const [cardWidth, setCardWidth] = useState(300);
   const [scrollsCount, setScrollsCount] = useState(1);
   const [currentScroll, setCurrentScroll] = useState(0);
 
@@ -29,10 +62,13 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
       const paddings = [16, 32, 64, 80];
       const gap = 16;
       const fixedVal = 16;
-
+      //defualt
       let cardsCount = 1;
+      //xl:
       if (windowWidth >= 1280) cardsCount = 4;
+      //lg:
       else if (windowWidth >= 1024) cardsCount = 3;
+      //md
       else if (windowWidth >= 768) cardsCount = 2;
 
       const newCardWidth =
