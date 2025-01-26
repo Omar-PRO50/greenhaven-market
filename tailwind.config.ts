@@ -31,10 +31,20 @@ export default {
       },
       //(100% - padding - cardsNo. * gap - max(padding - 16, 60)) / cardsNo.
       minWidth: {
-        "defautl-article-card": "calc((100%-1rem-(1*1rem)-3.75rem)/1)",
-        "md-article-card": "calc((100%-2rem-(2*1rem)-3.75rem)/2)",
-        "lg-article-card": "calc((100%-4rem-(3*1rem)-3.75rem)/3)",
-        "xl-article-card": "calc((100%-5rem-(4*1rem)-4rem)/4)",
+        "article-card": "calc((100vw - 1rem - (1 * 1rem) - 3.75rem) / 1)",
+        "md-article-card": "calc((100vw - 2rem - (2 * 1rem) - 3.75rem) / 2)",
+        "lg-article-card": "calc((100vw - 4rem - (3 * 1rem) - 3.75rem) / 3)",
+        "xl-article-card": "calc((100vw - 5rem - (4 * 1rem) - 4rem) / 4)",
+      },
+      minHeight: {
+        "article-card":
+          "calc(((100vw - 1rem - (1 * 1rem) - 3.75rem) / 1) * 1.25)",
+        "md-article-card":
+          "calc(((100vw - 2rem - (2 * 1rem) - 3.75rem) / 2) * 1.25)",
+        "lg-article-card":
+          "calc(((100vw - 4rem - (3 * 1rem) - 3.75rem) / 3) * 1.25)",
+        "xl-article-card":
+          "calc(((100vw - 5rem - (4 * 1rem) - 4rem) / 4) * 1.25)",
       },
     },
   },

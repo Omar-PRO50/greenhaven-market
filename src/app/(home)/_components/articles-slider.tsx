@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+
 type Article = {
   id: string;
   title: string;
@@ -16,52 +17,15 @@ type Article = {
   readTime: string;
   link: string;
 };
-// function handleResize() {
-//   const windowWidth = window.innerWidth;
-//   const paddings = [16, 32, 64, 80];
-//   const gap = 16;
-//   const fixedVal = 16;
-//   //defualt
-//   let cardsCount = 1;
-//   //xl:
-//   if (windowWidth >= 1280) cardsCount = 4;
-//   //lg:
-//   else if (windowWidth >= 1024) cardsCount = 3;
-//   //md
-//   else if (windowWidth >= 768) cardsCount = 2;
-
-//   const newCardWidth =
-//     (windowWidth -
-//       paddings[cardsCount - 1] -
-//       cardsCount * gap -
-//       Math.max(paddings[cardsCount - 1] - fixedVal, 60)) /
-//     cardsCount;
-
-//   setCardWidth(newCardWidth);
-//   setScrollsCount(-cardsCount + 8);
-// }
-// function f() {
-//   return (
-//     <div
-//       style={{ minWidth: "calc((100%) / )" + "px" }}
-//       className="min-w-defautl-article-card"
-//     ></div>
-//   );
-// }
-// f();
 
 export default function ArticlesSlider({ articles }: { articles: Article[] }) {
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(300);
   const [scrollsCount, setScrollsCount] = useState(1);
   const [currentScroll, setCurrentScroll] = useState(0);
 
   useEffect(() => {
     function handleResize() {
       const windowWidth = window.innerWidth;
-      const paddings = [16, 32, 64, 80];
-      const gap = 16;
-      const fixedVal = 16;
       //defualt
       let cardsCount = 1;
       //xl:
@@ -71,15 +35,9 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
       //md
       else if (windowWidth >= 768) cardsCount = 2;
 
-      const newCardWidth =
-        (windowWidth -
-          paddings[cardsCount - 1] -
-          cardsCount * gap -
-          Math.max(paddings[cardsCount - 1] - fixedVal, 60)) /
-        cardsCount;
-
-      setCardWidth(newCardWidth);
-      setScrollsCount(-cardsCount + 8);
+      setScrollsCount(
+        -cardsCount + 1 + (sliderRef.current?.childElementCount || 1),
+      );
     }
 
     window.addEventListener("resize", handleResize);
@@ -91,13 +49,18 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
 
   useEffect(() => {
     if (!sliderRef.current) return;
-    const slider = sliderRef.current;
-    slider.addEventListener("scroll", () => {
+    function handleScroll() {
       const cardWidth = slider.children[0]?.clientWidth || 0;
       const scrollAmount = slider.scrollLeft / cardWidth;
       setCurrentScroll(Math.round(scrollAmount));
-    });
+    }
+    const slider = sliderRef.current;
+    slider.addEventListener("scroll", handleScroll);
+    return () => {
+      slider.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
   const scrollByOneSnap = (direction: "left" | "right") => {
     if (!sliderRef.current) return;
     const slider = sliderRef.current;
@@ -108,6 +71,7 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
       behavior: "smooth",
     });
   };
+
   return (
     <div className="">
       <div
@@ -115,23 +79,9 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
         className="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-10 pt-4 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl"
       >
         {articles.map((article) => (
-          <ArticleCard key={article.id} {...article} cardWidth={cardWidth} />
+          <ArticleCard key={article.id} {...article} />
         ))}
-        <article
-          style={{
-            minWidth: cardWidth + "px",
-            minHeight: (cardWidth * 5) / 4 + "px",
-          }}
-        >
-          <Link
-            href="/blog"
-            className="group flex h-full items-center justify-center overflow-hidden rounded-2xl bg-[#F5F5E4] transition-all hover:scale-[1.03] hover:shadow-lg"
-          >
-            <p className="text-lg font-bold underline transition-colors hover:decoration-transparent">
-              View All
-            </p>
-          </Link>
-        </article>
+        <ArticleCard isViewAll />
       </div>
 
       {/* arrows */}
@@ -164,44 +114,45 @@ export default function ArticlesSlider({ articles }: { articles: Article[] }) {
   );
 }
 
-function ArticleCard({
-  title,
-  author,
-  readTime,
-  imageURL,
-  link,
-  cardWidth,
-}: Article & { cardWidth: number }) {
-  return (
-    <article
-      style={{
-        minWidth: cardWidth + "px",
-        minHeight: (cardWidth * 5) / 4 + "px",
-      }}
-      className={`z-20`}
-    >
-      <Link
-        href={`/article/${link}`}
-        className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F5E4] transition-all hover:scale-[1.03] hover:shadow-lg"
-      >
-        <div className="relative aspect-[2] w-full">
-          <Image
-            src={imageURL}
-            alt="article image"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="flex grow flex-col justify-between gap-5 p-8">
-          <div className="flex flex-col gap-3">
-            <h4>{title}</h4>
-            <p className="font-semibold">{author}</p>
-          </div>
+type ArticleCardProps =
+  | { isViewAll: true } // When isViewAll is true, no other props are required
+  | (Pick<Article, "title" | "author" | "readTime" | "imageURL" | "link"> & {
+      isViewAll?: false; // When isViewAll is false, all other props are required
+    });
 
-          <p className="w-fit rounded-lg bg-main px-5 py-1 text-white transition-all group-hover:bg-white group-hover:font-bold group-hover:text-main">
-            {readTime}
+function ArticleCard(props: ArticleCardProps) {
+  return (
+    <article className="min-h-article-card md:min-h-md-article-card lg:min-h-lg-article-card xl:min-h-xl-article-card min-w-article-card md:min-w-md-article-card lg:min-w-lg-article-card xl:min-w-xl-article-card group overflow-hidden rounded-2xl bg-[#F5F5E4] transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-lg">
+      <Link
+        href={props.isViewAll ? "/blog" : `/blog/article/${props.link}`}
+        className={`flex h-full w-full flex-col ${props.isViewAll ? "items-center justify-center" : ""}`}
+      >
+        {props.isViewAll ? (
+          <p className="text-lg font-bold underline transition-colors hover:decoration-transparent">
+            View All
           </p>
-        </div>
+        ) : (
+          <>
+            <div className="relative aspect-[2] w-full">
+              <Image
+                src={props.imageURL}
+                alt="article image"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="flex grow flex-col justify-between gap-5 p-8">
+              <div className="flex flex-col gap-3">
+                <h4>{props.title}</h4>
+                <p className="font-semibold">{props.author}</p>
+              </div>
+
+              <p className="w-fit rounded-lg bg-main px-5 py-1 text-white transition-all group-hover:bg-white group-hover:font-bold group-hover:text-main">
+                {props.readTime}
+              </p>
+            </div>
+          </>
+        )}
       </Link>
     </article>
   );
