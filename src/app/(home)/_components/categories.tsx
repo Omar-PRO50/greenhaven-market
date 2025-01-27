@@ -37,20 +37,20 @@ export default function Categories() {
 function CardsList() {
   const categoriesList = [
     {
-      imageURL: "/household-goods-category.jpg",
+      imageURL: "/category-images/household-goods.jpg",
       header: "Reusable Household Goods for Everyday Use",
       content: "Make a positive impact with our durable, reusable items.",
       categoryLink: "",
     },
     {
-      imageURL: "/skincare-category.jpg",
+      imageURL: "/category-images/skincare.jpg",
       header: "Organic Skincare for a Natural Glow",
       content: "Nourish your skin with our eco-friendly skincare line.",
       categoryLink: "",
       imgPosition: "object-[50%_35%]",
     },
     {
-      imageURL: "/clothing-category.jpg",
+      imageURL: "/category-images/clothing.jpg",
       header: "Eco-Friendly Clothing for Sustainable Fashion",
       content: "Dress sustainably with our stylish, ethical apparel.",
       categoryLink: "",
