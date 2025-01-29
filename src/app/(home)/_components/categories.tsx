@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Image from "next/image";
+import prisma from "@/lib/prisma";
+import { categories } from "@prisma/client";
 
 export default function Categories() {
   return (
@@ -34,68 +36,35 @@ export default function Categories() {
   );
 }
 
-function CardsList() {
-  const categoriesList = [
-    {
-      imageURL: "/category-images/household-goods.jpg",
-      header: "Reusable Household Goods for Everyday Use",
-      content: "Make a positive impact with our durable, reusable items.",
-      categoryLink: "",
-    },
-    {
-      imageURL: "/category-images/skincare.jpg",
-      header: "Organic Skincare for a Natural Glow",
-      content: "Nourish your skin with our eco-friendly skincare line.",
-      categoryLink: "",
-      imgPosition: "object-[50%_35%]",
-    },
-    {
-      imageURL: "/category-images/clothing.jpg",
-      header: "Eco-Friendly Clothing for Sustainable Fashion",
-      content: "Dress sustainably with our stylish, ethical apparel.",
-      categoryLink: "",
-    },
-  ];
-
+async function CardsList() {
+  const categories = await prisma.categories.findMany();
   return (
     <div className="flex flex-col items-center lg:flex-row lg:items-start lg:gap-7">
-      {categoriesList.map((category, index) => (
-        <Card key={index} {...category} />
+      {categories.map((category) => (
+        <Card key={category.category_id} {...category} />
       ))}
     </div>
   );
 }
 
-function Card({
-  imageURL,
-  header,
-  content,
-  categoryLink,
-  imgPosition = "",
-}: {
-  imageURL: string;
-  header: string;
-  content: string;
-  categoryLink: string;
-  imgPosition?: string;
-}) {
+function Card({ title, description, name, image_url }: categories) {
   return (
     <article className="group mb-10 w-full min-w-44 max-w-[31.25rem] shrink grow basis-10">
-      <Link href={categoryLink}>
+      <Link href={`/${name}`}>
         <div className="relative mb-4 aspect-[2/1] overflow-hidden">
           <Image
-            src={imageURL}
+            src={image_url}
             alt="card image"
             fill
-            className={`rounded-lg object-cover transition-transform duration-500 group-hover:scale-[1.05] ${imgPosition}`}
+            className={`rounded-lg object-cover transition-transform duration-500 group-hover:scale-[1.05] ${name === "skincare" ? "object-[50%_35%]" : ""}`}
             sizes="31.25rem"
           />
         </div>
         <div className="pr-2">
           <h4 className="text-xl font-semibold underline decoration-transparent transition-colors hover:underline group-hover:decoration-main">
-            {header}
+            {title}
           </h4>
-          <p className="text-base text-main-light">{content}</p>
+          <p className="text-base text-main-light">{description}</p>
         </div>
       </Link>
     </article>
