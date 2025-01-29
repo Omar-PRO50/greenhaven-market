@@ -1,10 +1,8 @@
 import Hero from "@/app/(home)/_components/hero";
 import Categories from "@/app/(home)/_components/categories";
 import Article from "@/app/(home)/_components/articles";
-import Mission from "./_components/mission";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import Mission from "@/app/(home)/_components/mission";
+import prisma from "@/lib/prisma";
 
 async function main() {
   const allProducts = await prisma.products.findMany();
