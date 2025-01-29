@@ -2,8 +2,26 @@ import Hero from "@/app/(home)/_components/hero";
 import Categories from "@/app/(home)/_components/categories";
 import Article from "@/app/(home)/_components/articles";
 import Mission from "./_components/mission";
+import { PrismaClient } from "@prisma/client";
 
-export default function Home() {
+const prisma = new PrismaClient();
+
+async function main() {
+  const allProducts = await prisma.products.findMany();
+  console.log(allProducts);
+}
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
+
+export default async function Home() {
+  main();
   return (
     <main className="">
       <Hero />
