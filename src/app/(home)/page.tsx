@@ -3,7 +3,7 @@ import Categories from "@/app/(home)/_components/categories";
 import Article from "@/app/(home)/_components/articles";
 import Mission from "@/app/(home)/_components/mission";
 
-export default async function Home() {
+export default async function Page() {
   return (
     <main className="">
       <Hero />

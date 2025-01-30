@@ -20,6 +20,11 @@ export default function PriceComponent({
   const pathname = usePathname();
   const { replace } = useRouter();
 
+  useEffect(() => {
+    setMini(Number(searchParams.get("minimumPrice") || NaN) || "");
+    setMax(Number(searchParams.get("maximumPrice") || NaN) || "");
+  }, [searchParams]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

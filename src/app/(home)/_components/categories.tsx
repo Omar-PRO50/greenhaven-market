@@ -50,7 +50,7 @@ async function CardsList() {
 function Card({ title, description, name, image_url }: categories) {
   return (
     <article className="group mb-10 w-full min-w-44 max-w-[31.25rem] shrink grow basis-10">
-      <Link href={`/${name}`}>
+      <Link href={`/shop/?category=${name}`}>
         <div className="relative mb-4 aspect-[2/1] overflow-hidden">
           <Image
             src={image_url}

@@ -3,7 +3,7 @@ import { products } from "@prisma/client";
 import Header from "@/app/shop/_components/header";
 import Image from "next/image";
 
-export default async function Shop(props: {
+export default async function Page(props: {
   searchParams?: Promise<{
     minimumPrice?: string;
     maximumPrice?: string;

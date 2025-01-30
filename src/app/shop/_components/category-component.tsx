@@ -1,20 +1,28 @@
 "use client";
 import { categories } from "@prisma/client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-// import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CategoryComponent({
   categories,
 }: {
   categories: Pick<categories, "category_id" | "name" | "title">[];
 }) {
-  // const [selectedCategory, setSelectedCategory] = useState("");
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState(
+    searchParams.get("category") || "",
+  );
+
+  // Update selected category when search params change
+  useEffect(() => {
+    const categoryParam = searchParams.get("category");
+    setSelectedCategory(categoryParam || "");
+  }, [searchParams]);
 
   function handleCategorySelect(value: string) {
-    // setSelectedCategory(value);
+    setSelectedCategory(value);
     const params = new URLSearchParams(searchParams);
     if (value) {
       params.set("category", value);
@@ -33,10 +41,10 @@ export default function CategoryComponent({
         Category:
       </label>
       <select
-        defaultValue={searchParams.get("category")?.toString()}
+        value={selectedCategory} // Controlled component
         name="categories"
         id="category"
-        className=""
+        className="bg-background"
         onChange={(e) => {
           handleCategorySelect(e.target.value);
         }}
