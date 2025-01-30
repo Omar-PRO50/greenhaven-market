@@ -7,9 +7,11 @@ export default async function Shop(props: {
   searchParams?: Promise<{
     minimumPrice?: string;
     maximumPrice?: string;
+    category?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
+
   //Number([|| undefined] means => if '' return undefined because Number('') = 0 and Number(undefined) = NaN)
   const minPrice = Number(searchParams?.minimumPrice || undefined);
   const maxPrice = Number(searchParams?.maximumPrice || undefined);
@@ -17,9 +19,14 @@ export default async function Shop(props: {
   if (!Number.isNaN(minPrice)) priceFilter.gte = minPrice;
   if (!Number.isNaN(maxPrice)) priceFilter.lte = maxPrice;
 
+  const selectedCategory = searchParams?.category;
+  const categoryFilter: { name?: string } = {};
+  if (selectedCategory) categoryFilter.name = selectedCategory;
+
   const products = await prisma.products.findMany({
     where: {
       price: priceFilter,
+      category: categoryFilter,
     },
   });
   const productsCount = await prisma.products.count({});
@@ -27,7 +34,6 @@ export default async function Shop(props: {
     ...products.map((product) => Number(product.price)),
   );
 
-  console.log(minPrice, maxPrice, products.length);
   return (
     <main>
       <div className="mb-16 space-y-5 px-cont-sm text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
