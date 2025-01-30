@@ -8,6 +8,7 @@ export default async function Shop(props: {
     minimumPrice?: string;
     maximumPrice?: string;
     category?: string;
+    sort_by?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
@@ -23,11 +24,19 @@ export default async function Shop(props: {
   const categoryFilter: { name?: string } = {};
   if (selectedCategory) categoryFilter.name = selectedCategory;
 
+  const selectedSort = searchParams?.sort_by?.split("-");
+  const orderOption: { price?: "asc" | "desc"; name?: "asc" | "desc" } = {};
+  if (selectedSort)
+    orderOption[selectedSort[0] as "price" | "name"] = selectedSort[1] as
+      | "asc"
+      | "desc";
+
   const products = await prisma.products.findMany({
     where: {
       price: priceFilter,
       category: categoryFilter,
     },
+    orderBy: orderOption,
   });
   const productsCount = await prisma.products.count({});
   const highestPrice = Math.max(
@@ -37,7 +46,15 @@ export default async function Shop(props: {
   return (
     <main>
       <div className="mb-16 space-y-5 px-cont-sm text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
-        <h2 className="text-3xl font-semibold">All Products</h2>
+        <h2 className="text-3xl font-semibold">
+          {selectedCategory
+            ? selectedCategory
+                .split("-") // Split the string by '-'
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
+                .join(" ") // Join words with spaces
+            : "All"}{" "}
+          Products
+        </h2>
         <section className="space-y-5">
           <Header
             filterProductsCount={products.length}

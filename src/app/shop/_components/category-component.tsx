@@ -13,7 +13,7 @@ export default function CategoryComponent({
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handleSelect(value: string) {
+  function handleCategorySelect(value: string) {
     // setSelectedCategory(value);
     const params = new URLSearchParams(searchParams);
     if (value) {
@@ -38,7 +38,7 @@ export default function CategoryComponent({
         id="category"
         className=""
         onChange={(e) => {
-          handleSelect(e.target.value);
+          handleCategorySelect(e.target.value);
         }}
       >
         <option value="">All</option>
