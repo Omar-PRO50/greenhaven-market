@@ -28,6 +28,8 @@ export default {
       },
       screens: {
         "2md": "860px",
+        xsm: "400px",
+        navbar: "900px",
       },
       //(100% - padding - cardsNo. * gap - max(padding - 16, 60)) / cardsNo.
       minWidth: {

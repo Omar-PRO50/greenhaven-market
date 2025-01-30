@@ -10,7 +10,7 @@ export default function Links() {
       <div className="flex flex-col gap-1">
         <h6>Useful Links</h6>
         <Link href="/about">About Us</Link>
-        <Link href="/shop">Shop Now</Link>
+        <Link href="/shop">Shop All</Link>
         <Link href="/contact-us">Contact Us</Link>
       </div>
       <div className="flex flex-col gap-1">
@@ -19,7 +19,7 @@ export default function Links() {
         <Link href="/faqs">FAQs</Link>
         <Link href="/return-cancellation-policies">Return Policy</Link>
       </div>
-      <div className="2md:flex-col 2md:items-start flex items-center gap-3">
+      <div className="flex items-center gap-3 2md:flex-col 2md:items-start">
         <h6>Follow Us</h6>
         <Link href="https://www.facebook.com">
           <FaFacebook {...iconStyles} />
