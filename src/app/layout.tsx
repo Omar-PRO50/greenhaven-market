@@ -16,9 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background">
-        <Navbar />
-        {children}
-        <Footer />
+        <div className="mx-auto max-w-[1700px]">
+          <Navbar />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
