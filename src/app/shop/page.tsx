@@ -4,16 +4,28 @@ import Header from "@/app/shop/_components/header";
 import Image from "next/image";
 import Link from "next/link";
 
+type Sort = "price" | "name" | "id";
+type Order = "asc" | "desc";
+const validSortFields = new Set<Sort>(["price", "name", "id"]);
+
 export default async function Page(props: {
   searchParams?: Promise<{
     minimumPrice?: string;
     maximumPrice?: string;
     category?: string;
     sort_by?: string;
+    order?: string;
     show_outofstock?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
+
+  const selectedSort = searchParams?.sort_by || "";
+  const selectedOrder: Order = searchParams?.order !== "desc" ? "asc" : "desc";
+  const orderOption: Partial<Record<Sort, Order>> = {};
+  if (selectedSort && validSortFields.has(selectedSort as Sort))
+    orderOption[selectedSort as Sort] = selectedOrder;
+  else orderOption.id = selectedOrder;
 
   //Number([|| undefined] means => if '' return undefined because Number('') = 0 and Number(undefined) = NaN)
   const minPrice = Number(searchParams?.minimumPrice || undefined);
@@ -25,13 +37,6 @@ export default async function Page(props: {
   const selectedCategory = searchParams?.category;
   const categoryFilter: { name?: string } = {};
   if (selectedCategory) categoryFilter.name = selectedCategory;
-
-  const selectedSort = searchParams?.sort_by?.split("-");
-  const orderOption: { price?: "asc" | "desc"; name?: "asc" | "desc" } = {};
-  if (selectedSort)
-    orderOption[selectedSort[0] as "price" | "name"] = selectedSort[1] as
-      | "asc"
-      | "desc";
 
   const show_outofstock = searchParams?.show_outofstock || "";
   const outofstockOption: { gt?: 0 } = {};
@@ -46,7 +51,7 @@ export default async function Page(props: {
     orderBy: orderOption,
   });
   const productsCount = await prisma.products.count({
-    where: { quantity: { gt: 0 } },
+    where: { quantity: outofstockOption },
   });
   const highestPrice = Math.max(
     ...products.map((product) => Number(product.price)),

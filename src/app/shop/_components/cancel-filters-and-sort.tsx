@@ -17,6 +17,7 @@ export default function CancelFiltersandSort({
   const minPrice = searchParams.get("minimumPrice");
   const category = searchParams.get("category");
   const sortby = searchParams.get("sort_by");
+  const showOutofstock = searchParams.get("show_outofstock");
 
   function handleCancel(paramsToDelete: string[]) {
     const params = new URLSearchParams(searchParams);
@@ -60,6 +61,15 @@ export default function CancelFiltersandSort({
           }}
         >
           <span>Sort by: {sortby}</span>
+          <RiCloseLargeFill />
+        </button>
+        <button
+          className={buttonStyles + `${showOutofstock ? "flex" : "hidden"}`}
+          onClick={() => {
+            handleCancel(["show_outofstock"]);
+          }}
+        >
+          <span>Show out of stock Products</span>
           <RiCloseLargeFill />
         </button>
       </div>

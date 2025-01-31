@@ -1,6 +1,8 @@
 "use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { RiSortAsc } from "react-icons/ri";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function SortbyComponent() {
   const searchParams = useSearchParams();
@@ -9,11 +11,12 @@ export default function SortbyComponent() {
   const [selectedSort, setSelectedSort] = useState(
     searchParams.get("sort_by") || "",
   );
+  const [isAsc, setIsAsc] = useState(searchParams.get("order") !== "desc");
 
   // Update selected sort when search params change
   useEffect(() => {
-    const sortParam = searchParams.get("sort_by");
-    setSelectedSort(sortParam || "");
+    setSelectedSort(searchParams.get("sort_by") || "");
+    setIsAsc(searchParams.get("order") !== "desc");
   }, [searchParams]);
 
   function handleSortSelect(value: string) {
@@ -26,6 +29,16 @@ export default function SortbyComponent() {
     }
     replace(`${pathname}?${params.toString()}`);
   }
+
+  const handleOrderChange = useDebouncedCallback(() => {
+    const params = new URLSearchParams(searchParams);
+    if (isAsc) {
+      params.set("order", "asc");
+    } else {
+      params.set("order", "desc");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }, 200);
 
   return (
     <div>
@@ -42,11 +55,17 @@ export default function SortbyComponent() {
         }}
       >
         <option value="">Featured</option>
-        <option value="price-asc">Price: Low to High</option>
-        <option value="price-desc">Price: High to Low</option>
-        <option value="name-asc">Name: A to Z</option>
-        <option value="name-desc">Name: Z to A</option>
+        <option value="price">Price</option>
+        <option value="name">Name</option>
       </select>
+      <button
+        onClick={() => {
+          setIsAsc((b) => !b);
+          handleOrderChange();
+        }}
+      >
+        <RiSortAsc className={`${isAsc ? "" : "-scale-y-100"}`} />
+      </button>
     </div>
   );
 }
