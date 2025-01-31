@@ -24,7 +24,7 @@ export default function NewsletterForm() {
       </p>
 
       {/* Email Input */}
-      <div className="mb-3 flex space-x-4">
+      <div className="mb-3 flex flex-col gap-4 xsm:flex-row">
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
