@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { products } from "@prisma/client";
 import Header from "@/app/shop/_components/header";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -9,6 +10,7 @@ export default async function Page(props: {
     maximumPrice?: string;
     category?: string;
     sort_by?: string;
+    show_outofstock?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
@@ -31,14 +33,21 @@ export default async function Page(props: {
       | "asc"
       | "desc";
 
+  const show_outofstock = searchParams?.show_outofstock || "";
+  const outofstockOption: { gt?: 0 } = {};
+  if (show_outofstock !== "true") outofstockOption.gt = 0;
+
   const products = await prisma.products.findMany({
     where: {
       price: priceFilter,
       category: categoryFilter,
+      quantity: outofstockOption,
     },
     orderBy: orderOption,
   });
-  const productsCount = await prisma.products.count({});
+  const productsCount = await prisma.products.count({
+    where: { quantity: { gt: 0 } },
+  });
   const highestPrice = Math.max(
     ...products.map((product) => Number(product.price)),
   );
@@ -78,21 +87,37 @@ function Products({ products }: { products: products[] }) {
   );
 }
 
-function Card({ price, image_url, title }: products) {
+function Card({ name, price, image_url, title, quantity }: products) {
+  const isOutOfStock = quantity === 0;
+
   return (
-    <div className="group flex aspect-[0.7] flex-col">
-      <div className="round relative mb-2 h-[65%] overflow-hidden rounded-md border-2 border-main">
-        <Image
-          src={image_url}
-          alt={title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw,(min-width: 640px) 50vw, 100vw"
-        />
-      </div>
-      <div className="underline-offset-2 group-hover:underline">{title}</div>
-      <div>${price.toFixed(2)} USD</div>
-      <button className="mt-auto rounded-3xl border-2 border-main py-2 transition-colors duration-200 group-hover:bg-main group-hover:text-background">
+    <div
+      className={`group flex aspect-[0.7] flex-col ${isOutOfStock ? "text-disabled" : ""}`}
+    >
+      <Link href={isOutOfStock ? "" : "/product/" + name} className="grow">
+        <div className="round relative mb-2 h-[65%] overflow-hidden rounded-md border-2 border-main">
+          <Image
+            src={image_url}
+            alt={title}
+            fill
+            className={`object-cover transition-transform duration-500 ${isOutOfStock ? "grayscale" : "group-hover:scale-105"}`}
+            sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw,(min-width: 640px) 50vw, 100vw"
+          />
+        </div>
+        <div
+          className={`underline-offset-2 ${isOutOfStock ? "" : "group-hover:underline"}`}
+        >
+          {title}
+        </div>
+        <div>${price.toFixed(2)} USD</div>
+        {isOutOfStock && (
+          <div className="font-semibold text-red-600">OUT OF STOCK</div>
+        )}
+      </Link>
+      <button
+        disabled={isOutOfStock}
+        className={`mt-auto rounded-3xl border-2 border-main py-2 transition-colors duration-200 hover:bg-main hover:text-background disabled:border-disabled disabled:bg-disabled disabled:text-white disabled:hover:text-white`}
+      >
         Add to Cart
       </button>
     </div>

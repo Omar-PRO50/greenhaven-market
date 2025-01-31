@@ -2,6 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function PriceComponent({
   highestPrice,
@@ -41,21 +42,19 @@ export default function PriceComponent({
     };
   }, []);
 
-  function handlePriceChange(type: "minimum" | "maximum", value: string) {
-    const params = new URLSearchParams(searchParams);
+  const handlePriceChange = useDebouncedCallback(
+    (type: "minimum" | "maximum", value: string) => {
+      const params = new URLSearchParams(searchParams);
 
-    if (type === "minimum") {
-      setMini(Number(value));
-    } else {
-      setMax(Number(value));
-    }
-    if (value) {
-      params.set(type + "Price", value);
-    } else {
-      params.delete(type + "Price");
-    }
-    replace(`${pathname}?${params.toString()}`);
-  }
+      if (value) {
+        params.set(type + "Price", value);
+      } else {
+        params.delete(type + "Price");
+      }
+      replace(`${pathname}?${params.toString()}`);
+    },
+    300,
+  );
 
   return (
     <div className="relative">
@@ -77,12 +76,13 @@ export default function PriceComponent({
           <input
             value={mini}
             onChange={(e) => {
+              setMini(Number(e.target.value));
               handlePriceChange("minimum", e.target.value);
             }}
             id="minimum"
             placeholder="From"
             type="number"
-            className="placeholder:text-main-lightx mr-3 h-7 w-20 rounded-2xl pl-2 focus-within:outline-none"
+            className="mr-3 h-7 w-20 rounded-2xl pl-2 placeholder:text-main-lightx focus-within:outline-none"
             min={0}
             max={max || highestPrice}
           />
@@ -90,12 +90,13 @@ export default function PriceComponent({
           <input
             value={max}
             onChange={(e) => {
+              setMax(Number(e.target.value));
               handlePriceChange("maximum", e.target.value);
             }}
             id="maximum"
             placeholder="To"
             type="number"
-            className="placeholder:text-main-lightx mr-3 h-7 w-20 rounded-2xl pl-2 text-main focus-within:outline-none"
+            className="mr-3 h-7 w-20 rounded-2xl pl-2 text-main placeholder:text-main-lightx focus-within:outline-none"
             min={mini || 0}
             max={highestPrice}
           />

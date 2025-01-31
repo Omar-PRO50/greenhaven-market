@@ -1,10 +1,11 @@
 // import { useSearchParams } from "next/navigation"
 import { VscSettings } from "react-icons/vsc";
-import PriceComponent from "./price-component";
-import CategoryComponent from "./category-component";
+import PriceComponent from "./filters/price-component";
+import CategoryComponent from "./filters/category-component";
 import SortbyComponent from "./sortby-component";
 import prisma from "@/lib/prisma";
 import CancelFiltersandSort from "./cancel-filters-and-sort";
+import ShowOutofstockComponent from "./filters/show-outofstock-component";
 
 export default async function Header({
   productsCount,
@@ -30,6 +31,7 @@ export default async function Header({
         <div className="hidden gap-2 xsm:flex">
           <PriceComponent highestPrice={highestPrice} />
           <CategoryComponent categories={categories} />
+          <ShowOutofstockComponent />
         </div>
         <div className="flex gap-2">
           {/*Sort by */}
