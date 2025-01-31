@@ -97,10 +97,15 @@ function Card({ name, price, image_url, title, quantity }: products) {
 
   return (
     <div
-      className={`group flex aspect-[0.7] flex-col ${isOutOfStock ? "text-disabled" : ""}`}
+      className={`group flex aspect-[0.8] flex-col ${isOutOfStock ? "text-disabled" : ""}`}
     >
       <Link href={isOutOfStock ? "" : "/product/" + name} className="grow">
-        <div className="round relative mb-2 h-[65%] overflow-hidden rounded-md border-2 border-main">
+        <div className="round relative mb-2 h-[80%] overflow-hidden rounded-md border-2 border-main">
+          {isOutOfStock && (
+            <div className="absolute left-2 top-2 z-10 rounded-md border-2 border-main bg-red-600 p-1 font-semibold text-white">
+              OUT OF STOCK
+            </div>
+          )}
           <Image
             src={image_url}
             alt={title}
@@ -115,9 +120,6 @@ function Card({ name, price, image_url, title, quantity }: products) {
           {title}
         </div>
         <div>${price.toFixed(2)} USD</div>
-        {isOutOfStock && (
-          <div className="font-semibold text-red-600">OUT OF STOCK</div>
-        )}
       </Link>
       <button
         disabled={isOutOfStock}

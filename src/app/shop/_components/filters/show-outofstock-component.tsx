@@ -30,6 +30,7 @@ export default function ShowOutofstockComponent() {
       {/* Checkmark */}
       <div className="relative size-5 self-center">
         <input
+          id="show-outofstock"
           type="checkbox"
           value=""
           checked={isChecked}
@@ -56,7 +57,7 @@ export default function ShowOutofstockComponent() {
           </svg>
         </div>
       </div>
-      <label htmlFor="terms" className="">
+      <label htmlFor="show-outofstock" className="">
         Show Out Of Stock Products
       </label>
     </div>
