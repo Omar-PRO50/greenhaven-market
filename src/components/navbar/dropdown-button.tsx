@@ -23,7 +23,7 @@ export default function DropdownButton({}) {
       <button
         name="toggleMenu"
         type="button"
-        className="navbar:hidden mr-1 size-[25px]"
+        className="mr-1 size-[25px] navbar:hidden"
         onClick={toggleMenu}
       >
         <IoMdMenu
@@ -41,13 +41,21 @@ export default function DropdownButton({}) {
       {/* Dropdown */}
       <ul
         style={{ top: "calc(100% - 1px)" }}
-        className={`navbar:hidden absolute z-10 block w-full overflow-y-hidden bg-background bg-inherit text-center shadow-md transition-[max-height] duration-500 ${
+        className={`absolute z-10 block w-full overflow-y-hidden bg-background bg-inherit text-center shadow-md transition-[max-height] duration-500 navbar:hidden ${
           menu!.isMenuOpen ? "max-h-64" : "max-h-0"
         }`}
       >
         {Links.map((link) => (
           <li key={link.name} className="py-4 text-lg">
-            <Link href={link.href}>{link.name}</Link>
+            <Link
+              onClick={() => {
+                menu!.setIsMenuOpen(false);
+              }}
+              className="focus:underline"
+              href={link.href}
+            >
+              {link.name}
+            </Link>
           </li>
         ))}
       </ul>
