@@ -20,6 +20,7 @@ export default function PriceComponent({
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const parentRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const { replace } = useRouter();
 
@@ -33,7 +34,9 @@ export default function PriceComponent({
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
       }
@@ -61,6 +64,7 @@ export default function PriceComponent({
   return (
     <div ref={parentRef}>
       <button
+        ref={buttonRef}
         onClick={() => {
           setIsOpen((e) => !e);
           if (!parentRef.current) return;
