@@ -25,7 +25,7 @@ export default function Categories() {
             Shop
           </Link>
           <Link
-            href="/blog"
+            href="/about"
             className="px-2 text-center transition-all hover:text-xl"
           >
             Learn more <MdKeyboardArrowRight className="inline-block" />

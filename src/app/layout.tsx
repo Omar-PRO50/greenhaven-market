@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background">
-        <div className="mx-auto max-w-[1700px]">
+        <div className="mx-auto flex min-h-screen max-w-[1700px] flex-col">
           <Navbar />
           {children}
           <Footer />

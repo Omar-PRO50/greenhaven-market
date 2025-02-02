@@ -1,7 +1,8 @@
 import Hero from "@/app/(home)/_components/hero";
 import Categories from "@/app/(home)/_components/categories";
-import Article from "@/app/(home)/_components/articles";
+import Articles from "@/app/(home)/_components/articles";
 import Mission from "@/app/(home)/_components/mission";
+import TopProducts from "./_components/top-products";
 
 export default async function Page() {
   return (
@@ -14,7 +15,8 @@ export default async function Page() {
         </h2>
       </section>
       <Categories />
-      <Article />
+      <TopProducts />
+      <Articles />
       <Mission />
     </main>
   );
