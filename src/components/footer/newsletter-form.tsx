@@ -1,6 +1,6 @@
 "use client";
 import { useFormStatus } from "react-dom";
-import { subscribeNewsletter } from "@/app/actions";
+import { subscribeNewsletter } from "@/components/footer/actions";
 import { useActionState, useState } from "react";
 import Form from "next/form";
 

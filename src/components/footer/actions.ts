@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import articles from "@/data/articles.json";
-
 type State = {
   message: string;
   success: boolean;
@@ -32,9 +29,4 @@ export async function subscribeNewsletter(
       success: false,
     };
   }
-}
-
-export async function getLatestArticles() {
-  await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulate delay
-  return articles;
 }

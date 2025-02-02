@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { getLatestArticles } from "@/app/actions";
+import { getLatestArticles } from "@/app/(home)/actions";
+
 import ArticlesSlider from "./articles-slider";
 import Image from "next/image";
 export default async function Articles() {
@@ -47,7 +48,7 @@ type ArticleCardProps =
 
 function ArticleCard(props: ArticleCardProps) {
   return (
-    <article className="min-h-article-card md:min-h-md-article-card lg:min-h-lg-article-card xl:min-h-xl-article-card min-w-article-card md:min-w-md-article-card lg:min-w-lg-article-card xl:min-w-xl-article-card group">
+    <article className="group min-h-article-card min-w-article-card md:min-h-md-article-card md:min-w-md-article-card lg:min-h-lg-article-card lg:min-w-lg-article-card xl:min-h-xl-article-card xl:min-w-xl-article-card">
       <Link
         href={props.isViewAll ? "/blog" : `/blog/article/${props.link}`}
         className={`flex h-full w-full flex-col overflow-hidden rounded-2xl bg-[#F5F5E4] transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-lg ${props.isViewAll ? "items-center justify-center" : ""}`}
