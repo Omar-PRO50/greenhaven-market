@@ -20,7 +20,7 @@ export default function Slider({ children }: { children: React.ReactNode }) {
       else if (windowWidth >= 768) cardsCount = 2;
 
       setScrollsCount(
-        -cardsCount + 1 + (sliderRef.current?.childElementCount || 1),
+        (sliderRef.current?.childElementCount || 1) - cardsCount + 1,
       );
     }
 

@@ -70,7 +70,7 @@ export default function NavbarCont({
   return (
     <header
       ref={headerRef}
-      className="top-0 z-50 transition-transform duration-300"
+      className="top-0 z-50 bg-background transition-transform duration-300"
     >
       {children}
     </header>

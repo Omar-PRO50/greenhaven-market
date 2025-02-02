@@ -33,6 +33,9 @@ export default {
         navbar: "900px",
       },
       //(100% - padding - cardsNo. * gap - max(padding - 16, 60)) / cardsNo.
+      maxWidth: {
+        "max-screen-width": "1700px",
+      },
       minWidth: {
         "article-card": "calc((100vw - 1rem - (1 * 1rem) - 3.75rem) / 1)",
         "md-article-card": "calc((100vw - 2rem - (2 * 1rem) - 3.75rem) / 2)",

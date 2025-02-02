@@ -106,7 +106,7 @@ export function ProductCard({
       className={`group flex aspect-[0.8] flex-col ${isOutOfStock ? "text-disabled" : ""}`}
     >
       <Link href={isOutOfStock ? "" : "/product/" + name} className="grow">
-        <div className="round relative mb-2 h-[80%] overflow-hidden rounded-md border-2 border-main">
+        <div className="relative mb-2 h-[80%] overflow-hidden rounded-md border-2 border-main">
           {isOutOfStock && (
             <div className="absolute left-2 top-2 z-10 rounded-md border-2 border-main bg-red-600 p-1 font-semibold text-white">
               OUT OF STOCK

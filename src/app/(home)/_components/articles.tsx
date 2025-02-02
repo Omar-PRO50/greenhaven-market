@@ -6,7 +6,7 @@ import Image from "next/image";
 export default async function Articles() {
   const articles = await getLatestArticles();
   return (
-    <section className="py-20 text-main">
+    <section className="mx-auto py-20 text-main">
       <header className="mb-5 flex items-end gap-4 px-cont-sm md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
         <h3 className="text-center text-3xl font-bold">Latest Articles</h3>
         <Link

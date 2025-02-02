@@ -59,12 +59,13 @@ export default function SortbyComponent() {
         <option value="name">Name</option>
       </select>
       <button
+        className="transition-transform duration-300 hover:scale-110"
         onClick={() => {
           setIsAsc((b) => !b);
           handleOrderChange();
         }}
       >
-        <RiSortAsc className={`${isAsc ? "" : "-scale-y-100"}`} />
+        <RiSortAsc className={`size-5 ${isAsc ? "" : "-scale-y-100"}`} />
       </button>
     </div>
   );

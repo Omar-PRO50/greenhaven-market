@@ -16,43 +16,45 @@ export default function Navbar() {
     <DropdownProvider>
       <IconThemeProvider>
         <NavbarCont>
-          <div className="relative grid grid-cols-[1fr_auto_1fr] items-center bg-background px-cont-sm py-7 text-main-light underline-offset-2 md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
-            <nav className="text-md navbar:flex hidden gap-6">
-              <Link href="/shop" className="hover:underline">
-                Shop All
-              </Link>
-              <Link href="/blog" className="hover:underline">
-                Blog
-              </Link>
-              <Link href="/contact-us" className="hover:underline">
-                Contact Us
-              </Link>
-              <Link href="/about" className="hover:underline">
-                About Us
-              </Link>
-            </nav>
-            <DropdownButton />
-            {/*Logo */}
+          <div className="max-w-max-screen-width mx-auto px-cont-sm py-7 md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
+            <div className="relative grid grid-cols-[1fr_auto_1fr] items-center text-main-light underline-offset-2">
+              <nav className="text-md hidden gap-6 navbar:flex">
+                <Link href="/shop" className="hover:underline">
+                  Shop All
+                </Link>
+                <Link href="/blog" className="hover:underline">
+                  Blog
+                </Link>
+                <Link href="/contact-us" className="hover:underline">
+                  Contact Us
+                </Link>
+                <Link href="/about" className="hover:underline">
+                  About Us
+                </Link>
+              </nav>
+              <DropdownButton />
+              {/*Logo */}
 
-            <h1>
-              <Link href="/">
-                <Image
-                  src="/logo.svg"
-                  alt="GreenHaven Market Logo"
-                  width="180"
-                  height="25"
-                />
-              </Link>
-            </h1>
+              <h1>
+                <Link href="/">
+                  <Image
+                    src="/logo.svg"
+                    alt="GreenHaven Market Logo"
+                    width="180"
+                    height="25"
+                  />
+                </Link>
+              </h1>
 
-            <div className="flex justify-end gap-6">
-              <SearchButton />
+              <div className="flex justify-end gap-6">
+                <SearchButton />
 
-              <CartButton />
+                <CartButton />
 
-              <span className="hidden items-center md:flex">
-                <UserButton />
-              </span>
+                <span className="hidden items-center md:flex">
+                  <UserButton />
+                </span>
+              </div>
             </div>
           </div>
         </NavbarCont>
