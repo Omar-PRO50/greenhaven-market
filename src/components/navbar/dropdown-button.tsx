@@ -12,8 +12,8 @@ export default function DropdownButton({}) {
     menu!.setIsMenuOpen(!menu!.isMenuOpen);
   };
   const Links = [
-    { name: "Blog", href: "/blog" },
     { name: "Shop", href: "/shop" },
+    { name: "Blog", href: "/blog" },
     { name: "Log In", href: "/login" },
     { name: "Sign Up", href: "/signup" },
   ];
