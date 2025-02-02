@@ -6,7 +6,7 @@ import Image from "next/image";
 export default async function Articles() {
   const articles = await getLatestArticles();
   return (
-    <section className="mx-auto py-20 text-main">
+    <section className="py-20 text-main">
       <header className="mb-5 flex items-end gap-4 px-cont-sm md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
         <h3 className="text-center text-3xl font-bold">Latest Articles</h3>
         <Link
@@ -48,10 +48,12 @@ type ArticleCardProps =
 
 function ArticleCard(props: ArticleCardProps) {
   return (
-    <article className="group min-h-article-card min-w-article-card md:min-h-md-article-card md:min-w-md-article-card lg:min-h-lg-article-card lg:min-w-lg-article-card xl:min-h-xl-article-card xl:min-w-xl-article-card">
+    <article
+      className={`group aspect-[4/5] min-w-[calc((100vw-1rem-(1*1rem)-3.75rem)/1)] md:min-w-[calc((100vw-2rem-(2*1rem)-3.75rem)/2)] lg:min-w-[calc((100vw-4rem-(3*1rem)-3.75rem)/3)] xl:min-w-[calc((100vw-5rem-(4*1rem)-4rem)/4)]`}
+    >
       <Link
         href={props.isViewAll ? "/blog" : `/blog/article/${props.link}`}
-        className={`flex h-full w-full flex-col overflow-hidden rounded-2xl bg-[#F5F5E4] transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-lg ${props.isViewAll ? "items-center justify-center" : ""}`}
+        className={`flex min-h-full w-full flex-col overflow-hidden rounded-2xl bg-[#F5F5E4] transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-lg ${props.isViewAll ? "items-center justify-center" : ""}`}
       >
         {props.isViewAll ? (
           <p className="text-lg font-bold underline transition-colors hover:decoration-transparent">

@@ -9,18 +9,31 @@ export default function Slider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     function handleResize() {
+      const slider = sliderRef.current;
+      if (!slider) return;
       const windowWidth = window.innerWidth;
-      //defualt
-      let cardsCount = 1;
+      const rootFontSize = parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize,
+      );
+      const cardWidth = slider.children[0]?.clientWidth || 0;
+
+      //defualt in rem
+      let padding = 1;
       //xl:
-      if (windowWidth >= 1280) cardsCount = 4;
+      if (windowWidth >= 1280) padding = 5;
       //lg:
-      else if (windowWidth >= 1024) cardsCount = 3;
+      else if (windowWidth >= 1024) padding = 4;
       //md
-      else if (windowWidth >= 768) cardsCount = 2;
+      else if (windowWidth >= 768) padding = 2;
+
+      const cardsCount =
+        (windowWidth / rootFontSize - padding - Math.max(padding - 1, 3.75)) /
+        (cardWidth / rootFontSize + 1);
 
       setScrollsCount(
-        (sliderRef.current?.childElementCount || 1) - cardsCount + 1,
+        Math.round(
+          (sliderRef.current?.childElementCount || 1) - cardsCount + 1,
+        ),
       );
     }
 
@@ -60,7 +73,7 @@ export default function Slider({ children }: { children: React.ReactNode }) {
     <div className="">
       <div
         ref={sliderRef}
-        className="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-10 pt-4 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl"
+        className="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-10 pt-8 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl"
       >
         {children}
       </div>
