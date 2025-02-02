@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getLatestArticles } from "@/app/(home)/actions";
 
-import ArticlesSlider from "./articles-slider";
+import ArticlesSlider from "@/components/slider";
 import Image from "next/image";
 export default async function Articles() {
   const articles = await getLatestArticles();

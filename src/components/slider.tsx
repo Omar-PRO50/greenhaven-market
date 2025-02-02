@@ -2,11 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
-export default function ArticlesSlider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Slider({ children }: { children: React.ReactNode }) {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [scrollsCount, setScrollsCount] = useState(1);
   const [currentScroll, setCurrentScroll] = useState(0);
@@ -50,8 +46,8 @@ export default function ArticlesSlider({
   }, []);
 
   const scrollByOneSnap = (direction: "left" | "right") => {
-    if (!sliderRef.current) return;
     const slider = sliderRef.current;
+    if (!slider) return;
     const cardWidth = slider.children[0]?.clientWidth || 0;
     const scrollAmount = direction === "left" ? -cardWidth : cardWidth;
     slider.scrollBy({

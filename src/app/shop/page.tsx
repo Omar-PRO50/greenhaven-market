@@ -86,13 +86,19 @@ function Products({ products }: { products: products[] }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => (
-        <Card key={product.id} {...product} />
+        <ProductCard key={product.id} {...product} />
       ))}
     </div>
   );
 }
 
-function Card({ name, price, image_url, title, quantity }: products) {
+export function ProductCard({
+  name,
+  price,
+  image_url,
+  title,
+  quantity,
+}: products) {
   const isOutOfStock = quantity === 0;
 
   return (
