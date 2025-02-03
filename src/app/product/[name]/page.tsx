@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 export default async function Page({
   params,
@@ -14,5 +15,13 @@ export default async function Page({
     notFound();
   }
 
-  return <div>my product: {product.title}</div>;
+  return (
+    <main className="flex flex-col px-cont-sm py-10 md:flex-row md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
+      <div className="relative aspect-square w-96 self-center overflow-hidden rounded-md border-2 border-main">
+        <Image src={product.image_url} fill alt={product.title} />
+      </div>
+
+      <div></div>
+    </main>
+  );
 }

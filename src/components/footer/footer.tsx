@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="mt-auto bg-main px-cont-sm py-10 text-background md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
-      <div className="max-w-max-screen-width mx-auto w-fit 2md:mx-0 2md:w-full">
+      <div className="mx-auto w-full max-w-max-screen-width">
         <Link href="/" className="mb-4 block">
           <Image
             src="/footer-logo.svg"

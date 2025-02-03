@@ -49,7 +49,7 @@ export default function NewsletterForm() {
             value=""
             checked={isChecked}
             onChange={(e) => setIsChecked(e.target.checked)}
-            className="peer absolute inset-0 z-10 size-full self-center opacity-0"
+            className="peer absolute inset-0 z-10 size-full cursor-pointer self-center opacity-0"
           />
 
           <div className="relative size-full rounded-md border-2 border-gray-300 transition-all duration-200 peer-checked:border-background peer-checked:bg-background">

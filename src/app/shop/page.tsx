@@ -58,8 +58,8 @@ export default async function Page(props: {
   );
 
   return (
-    <main>
-      <div className="mb-16 space-y-5 px-cont-sm text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
+    <main className="mb-16 px-cont-sm text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
+      <div className="mx-auto w-full max-w-max-screen-width space-y-5">
         <h2 className="text-3xl font-semibold">
           {selectedCategory
             ? selectedCategory

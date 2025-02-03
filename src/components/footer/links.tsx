@@ -21,17 +21,21 @@ export default function Links() {
       </div>
       <div className="flex items-center gap-3 2md:flex-col 2md:items-start">
         <h6>Follow Us</h6>
-        <Link href="https://www.facebook.com">
+        <Link href="https://www.facebook.com" className="">
           <FaFacebook {...iconStyles} />
+          <span>Facebook</span>
         </Link>
         <Link href="https://www.instagram.com">
           <IoLogoInstagram {...iconStyles} />
+          <span>Instagram</span>
         </Link>
         <Link href="https://www.youtube.com">
           <FaYoutube {...iconStyles} />
+          <span>Youtube</span>
         </Link>
         <Link href="https://www.pinterest.com">
           <FaPinterest {...iconStyles} />
+          <span>Pinterest</span>
         </Link>
       </div>
     </>
