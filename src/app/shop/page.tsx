@@ -92,13 +92,7 @@ function Products({ products }: { products: products[] }) {
   );
 }
 
-export function ProductCard({
-  name,
-  price,
-  image_url,
-  title,
-  quantity,
-}: products) {
+function ProductCard({ name, price, image_url, title, quantity }: products) {
   const isOutOfStock = quantity === 0;
 
   return (
