@@ -14,8 +14,8 @@ export default async function Page() {
           you need them, and biodegrade when you don’t.
         </h2>
       </section>
-      <Categories />
       <TopProducts />
+      <Categories />
       <Articles />
       <Mission />
     </main>

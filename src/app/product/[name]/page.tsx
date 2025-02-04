@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import Product from "@/app/product/_components/product";
+import MayLike from "../_components/may-like";
 
 export default async function Page({
   params,
@@ -16,12 +17,11 @@ export default async function Page({
   }
 
   return (
-    <main className="flex flex-col px-cont-sm py-10 md:flex-row md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
-      <div className="relative aspect-square w-96 self-center overflow-hidden rounded-md border-2 border-main">
-        <Image src={product.image_url} fill alt={product.title} />
+    <main className="px-cont-sm py-10 text-main md:flex-row md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
+      <div className="mx-auto flex max-w-max-screen-width flex-col gap-10">
+        <Product product={product} />
+        <MayLike productId={product.id} categoryId={product.category_id} />
       </div>
-
-      <div></div>
     </main>
   );
 }
