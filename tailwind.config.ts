@@ -20,6 +20,7 @@ export default {
           DEFAULT: "#184508",
           light: "#7A8E17",
           lightx: "#8ba283",
+          lightT: "#566B5B",
         },
         background: {
           DEFAULT: "#e6e6da",

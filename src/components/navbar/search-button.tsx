@@ -1,9 +1,10 @@
 "use client";
-import { IoSearch } from "react-icons/io5";
+import { PiMagnifyingGlass } from "react-icons/pi";
+
 export default function SearchButton() {
   return (
     <button name="search" type="button">
-      <IoSearch />
+      <PiMagnifyingGlass />
     </button>
   );
 }

@@ -17,7 +17,7 @@ export default function Navbar() {
       <IconThemeProvider>
         <NavbarCont>
           <div className="mx-auto max-w-max-screen-width py-7">
-            <div className="relative grid grid-cols-[1fr_auto_1fr] items-center text-main underline-offset-2">
+            <div className="grid grid-cols-[1fr_auto_1fr] items-center text-main underline-offset-2">
               <nav className="text-md hidden gap-6 navbar:flex">
                 <Link href="/shop" className="hover:underline">
                   Shop All

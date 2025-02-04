@@ -1,9 +1,10 @@
 "use client";
-import { IoMdMenu } from "react-icons/io";
-import { RiCloseLargeFill } from "react-icons/ri";
+
 import Link from "next/link";
 import { useContext } from "react";
 import { DropdownContext } from "@/providers/navbar-provider";
+import { LuAlignJustify } from "react-icons/lu";
+import { PiX } from "react-icons/pi";
 
 export default function DropdownButton({}) {
   const menu = useContext(DropdownContext);
@@ -26,12 +27,11 @@ export default function DropdownButton({}) {
         className="mr-1 size-[25px] navbar:hidden"
         onClick={toggleMenu}
       >
-        <IoMdMenu
+        <LuAlignJustify
+          strokeWidth={1.5}
           className={`absolute top-1/2 -translate-y-1/2 ${!menu!.isMenuOpen ? "z-20 opacity-100" : "z-10 opacity-0"}`}
         />
-
-        <RiCloseLargeFill
-          size={23}
+        <PiX
           className={`absolute top-1/2 -translate-y-1/2 ${
             menu!.isMenuOpen ? "z-20 opacity-100" : "z-10 opacity-0"
           }`}
@@ -41,7 +41,7 @@ export default function DropdownButton({}) {
       {/* Dropdown */}
       <ul
         style={{ top: "calc(100% - 1px)" }}
-        className={`absolute z-10 block w-full overflow-y-hidden bg-background bg-inherit text-center shadow-md transition-[max-height] duration-500 navbar:hidden ${
+        className={`absolute left-0 z-10 block w-screen overflow-y-hidden bg-background text-center shadow-md transition-[max-height] duration-500 navbar:hidden ${
           menu!.isMenuOpen ? "max-h-64" : "max-h-0"
         }`}
       >
