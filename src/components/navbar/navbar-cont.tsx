@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useContext } from "react";
-import { DropdownContext } from "@/providers/navbar-provider";
+import { DropdownContext } from "@/context/navbar-context";
 import { usePathname } from "next/navigation";
 
 export default function NavbarCont({
@@ -70,7 +70,7 @@ export default function NavbarCont({
   return (
     <header
       ref={headerRef}
-      className="relative top-0 z-50 bg-background px-cont-sm transition-transform duration-300 md:px-cont-md lg:px-cont-lg xl:px-cont-xl"
+      className="relative top-0 z-40 bg-background px-cont-sm transition-transform duration-300 md:px-cont-md lg:px-cont-lg xl:px-cont-xl"
     >
       {children}
     </header>

@@ -7,7 +7,7 @@ export function IconThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <IconContext.Provider
       value={{
-        size: "25",
+        size: "23",
         className: "transition-all hover:scale-[1.1]",
       }}
     >
@@ -21,7 +21,9 @@ type DropdownContextType = {
   setIsMenuOpen: (value: SetStateAction<boolean>) => void;
 };
 
-export const DropdownContext = createContext<DropdownContextType | null>(null);
+export const DropdownContext = createContext<DropdownContextType | undefined>(
+  undefined,
+);
 
 export function DropdownProvider({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

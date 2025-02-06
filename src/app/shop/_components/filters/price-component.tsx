@@ -29,7 +29,7 @@ export default function PriceComponent({
     setMax(Number(searchParams.get("maximumPrice") || NaN) || "");
   }, [searchParams]);
 
-  // Close dropdown when clicking outside
+  // Close price dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -117,7 +117,7 @@ export default function PriceComponent({
             />
             <span className="absolute top-[-9px] size-4 rotate-45 border-l-2 border-t-2 border-main bg-inherit"></span>
           </div>,
-          document.body,
+          window.document.body,
         )}
     </div>
   );

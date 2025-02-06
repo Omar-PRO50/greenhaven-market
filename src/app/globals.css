@@ -8,3 +8,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.btn-primary {
+  @apply w-full max-w-md rounded-3xl bg-main p-2 text-center font-medium text-background transition-transform duration-200 hover:scale-[1.02];
+}

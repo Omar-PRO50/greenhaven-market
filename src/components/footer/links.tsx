@@ -19,7 +19,7 @@ export default function Links() {
         <Link href="/faqs">FAQs</Link>
         <Link href="/return-cancellation-policies">Return Policy</Link>
       </div>
-      <div className="flex items-center gap-3 2md:flex-col 2md:items-start">
+      <div className="flex flex-col items-start gap-3">
         <h6>Follow Us</h6>
         <Link href="https://www.facebook.com" className="">
           <FaFacebook {...iconStyles} />

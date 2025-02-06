@@ -1,10 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import {
-  DropdownProvider,
-  IconThemeProvider,
-} from "@/providers/navbar-provider";
+import { DropdownProvider, IconThemeProvider } from "@/context/navbar-context";
 import NavbarCont from "./navbar-cont";
 import DropdownButton from "./dropdown-button";
 import SearchButton from "./search-button";

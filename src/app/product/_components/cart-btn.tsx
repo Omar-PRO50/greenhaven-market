@@ -13,8 +13,8 @@ export default function CartBtn({
   return (
     <>
       <div className="space-y-1">
-        <p className="text-main-lightT text-sm font-medium">Quantity</p>
-        <div className="flex w-max items-center gap-6 rounded-lg border-2 border-main px-3 py-2">
+        <p className="text-sm font-medium text-main-lightT">Quantity</p>
+        <div className="flex w-36 justify-around rounded-2xl border-2 border-main py-2">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
             disabled={quantity === 1}
@@ -32,9 +32,7 @@ export default function CartBtn({
           </button>
         </div>
       </div>
-      <button className="w-full max-w-md rounded-3xl bg-main p-2 text-center font-medium text-background transition-transform duration-200 hover:scale-[1.02]">
-        Add to Cart
-      </button>
+      <button className="btn-primary">Add to Cart</button>
     </>
   );
 }
