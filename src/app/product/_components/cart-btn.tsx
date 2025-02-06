@@ -1,13 +1,19 @@
 "use client";
 
+import { useCart } from "@/context/cart-context";
+import { SerializedProductType } from "@/types/prism-product";
 import { useState } from "react";
 import { PiPlusBold, PiMinusBold } from "react-icons/pi";
 
 export default function CartBtn({
-  productQuantity,
+  product,
 }: {
-  productQuantity: number;
+  product: SerializedProductType;
 }) {
+  const { updateQuantity, cart } = useCart();
+  const item = cart.find((cartItem) => cartItem.id === product.id);
+  const stockQuantity = item?.quantity || 0;
+  const orderQuantity = item?.orderQuantity || 0;
   const [quantity, setQuantity] = useState(1);
 
   return (
@@ -24,15 +30,26 @@ export default function CartBtn({
           </button>
           <span className="font-medium">{quantity}</span>
           <button
-            onClick={() => setQuantity((q) => Math.min(productQuantity, q + 1))}
-            disabled={quantity === productQuantity}
+            onClick={() =>
+              setQuantity((q) => Math.min(product.quantity, q + 1))
+            }
+            //orderQuantity + quantity = product.quantity
+            disabled={orderQuantity + quantity >= product.quantity}
             className={`disabled:cursor-not-allowed disabled:opacity-50`}
           >
             <PiPlusBold size={10} />
           </button>
         </div>
       </div>
-      <button className="btn-primary">Add to Cart</button>
+      <button
+        className="btn-primary"
+        onClick={() => {
+          updateQuantity(product, "inc", quantity);
+        }}
+        disabled={orderQuantity >= stockQuantity}
+      >
+        Add to Cart
+      </button>
     </>
   );
 }

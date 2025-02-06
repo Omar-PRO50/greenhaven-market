@@ -8,7 +8,7 @@ export function IconThemeProvider({ children }: { children: React.ReactNode }) {
     <IconContext.Provider
       value={{
         size: "23",
-        className: "transition-all hover:scale-[1.1]",
+        className: "transition-all hover:scale-[1.1] hover:cursor-pointer",
       }}
     >
       {children}

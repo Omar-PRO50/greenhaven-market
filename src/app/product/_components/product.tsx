@@ -14,10 +14,10 @@ export default function Product({ product }: { product: products }) {
       <div className="space-y-3">
         <h1 className="text-3xl">{product.title}</h1>
         <p> ${product.price.toFixed(2)} USD</p>
-        <CartBtn productQuantity={product.quantity} />
+        <CartBtn product={{ ...product, price: product.price.toNumber() }} />
         <div>
-          <h6 className="text-main-lightT font-medium underline">OVERVIEW</h6>
-          <p className="text-main-lightT text-sm">{product.description}</p>
+          <h6 className="font-medium text-main-lightT underline">OVERVIEW</h6>
+          <p className="text-sm text-main-lightT">{product.description}</p>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { products } from "@prisma/client";
 import Header from "@/app/shop/_components/header";
 import Image from "next/image";
 import Link from "next/link";
+import CartBtn from "@/app/shop/_components/cart-btn";
 
 type Sort = "price" | "name" | "id";
 type Order = "asc" | "desc";
@@ -86,13 +87,14 @@ function Products({ products }: { products: products[] }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => (
-        <ProductCard key={product.id} {...product} />
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );
 }
 
-function ProductCard({ name, price, image_url, title, quantity }: products) {
+function ProductCard({ product }: { product: products }) {
+  const { name, price, image_url, title, quantity } = product;
   const isOutOfStock = quantity === 0;
 
   return (
@@ -121,12 +123,7 @@ function ProductCard({ name, price, image_url, title, quantity }: products) {
         </div>
         <div>${price.toFixed(2)} USD</div>
       </Link>
-      <button
-        disabled={isOutOfStock}
-        className={`mt-auto rounded-3xl border-2 border-main py-2 transition-colors duration-200 hover:bg-main hover:text-background disabled:border-disabled disabled:bg-disabled disabled:text-white disabled:hover:text-white`}
-      >
-        Add to Cart
-      </button>
+      <CartBtn product={{ ...product, price: product.price.toNumber() }} />
     </div>
   );
 }
