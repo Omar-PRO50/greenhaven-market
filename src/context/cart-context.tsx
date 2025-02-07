@@ -39,7 +39,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    console.log(cart);
+    console.log("cart", cart);
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 

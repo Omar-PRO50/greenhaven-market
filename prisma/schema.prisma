@@ -9,7 +9,7 @@ datasource db {
 
 model categories {
   category_id Int        @id @default(autoincrement())
-  name        String     @db.VarChar(255)
+  name        String     @unique(map: "unique_name_idx") @db.VarChar(255)
   title       String     @db.VarChar(255)
   description String
   image_url   String     @db.VarChar(512)

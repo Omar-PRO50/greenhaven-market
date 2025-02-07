@@ -13,7 +13,7 @@ export default function Hero() {
       </p>
       <Link
         href="/shop"
-        className="rounded-md border-2 border-main px-5 py-2 text-lg transition-all hover:bg-main hover:text-white"
+        className="rounded-md border-2 border-main bg-[#d3ccbc] px-5 py-2 text-lg transition-all hover:bg-main hover:text-white"
       >
         Shop Now!
       </Link>

@@ -62,7 +62,6 @@ function Cart({
   const total = cart.reduce((accumulator, currentItem) => {
     return accumulator + currentItem.price * currentItem.orderQuantity;
   }, 0);
-  console.log(cart, total);
 
   const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -159,9 +158,12 @@ function Product({ product }: { product: CartItem }) {
             onClick={() => {
               updateQuantity(product, "dec", 1);
             }}
-            className={`disabled:cursor-not-allowed disabled:opacity-50`}
+            className={`group disabled:cursor-not-allowed disabled:opacity-50`}
           >
-            <PiMinusBold size={10} />
+            <PiMinusBold
+              size={10}
+              className="group-disabled:hover:cursor-not-allowed"
+            />
           </button>
           <span className="font-medium">{orderQuantity}</span>
           <button
@@ -169,9 +171,12 @@ function Product({ product }: { product: CartItem }) {
               updateQuantity(product, "inc", 1);
             }}
             disabled={orderQuantity >= quantity}
-            className={`disabled:cursor-not-allowed disabled:opacity-50`}
+            className={`group disabled:cursor-not-allowed disabled:opacity-50`}
           >
-            <PiPlusBold size={10} />
+            <PiPlusBold
+              size={10}
+              className="group-disabled:hover:cursor-not-allowed"
+            />
           </button>
         </div>
         <button

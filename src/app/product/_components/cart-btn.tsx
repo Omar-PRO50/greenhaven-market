@@ -12,8 +12,6 @@ export default function CartBtn({
 }) {
   const { updateQuantity, cart } = useCart();
   const item = cart.find((cartItem) => cartItem.id === product.id);
-  const stockQuantity = item?.quantity || 0;
-  const orderQuantity = item?.orderQuantity || 0;
   const [quantity, setQuantity] = useState(1);
 
   return (
@@ -34,7 +32,7 @@ export default function CartBtn({
               setQuantity((q) => Math.min(product.quantity, q + 1))
             }
             //orderQuantity + quantity = product.quantity
-            disabled={orderQuantity + quantity >= product.quantity}
+            disabled={(item?.orderQuantity || 0) + quantity >= product.quantity}
             className={`disabled:cursor-not-allowed disabled:opacity-50`}
           >
             <PiPlusBold size={10} />
@@ -46,7 +44,7 @@ export default function CartBtn({
         onClick={() => {
           updateQuantity(product, "inc", quantity);
         }}
-        disabled={orderQuantity >= stockQuantity}
+        disabled={(item?.orderQuantity || 0) >= product.quantity}
       >
         Add to Cart
       </button>

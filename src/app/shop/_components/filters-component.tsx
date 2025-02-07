@@ -27,7 +27,7 @@ export default function FiltersComponent({
         Filters <MdKeyboardArrowDown className="size-5 self-center" />
       </button>
 
-      <div className="flex flex-wrap gap-2 [&>div]:flex-none">
+      <div className="mb-2 flex flex-wrap gap-2 [&>div]:flex-none">
         <PriceComponent highestPrice={highestPrice} />
         <CategoryComponent categories={categories} />
         <ShowOutofstockComponent />
