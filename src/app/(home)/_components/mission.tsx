@@ -1,4 +1,5 @@
 import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
+import { StaggeredListInView } from "@/components/animation/staggeredList";
 import Image from "next/image";
 
 const MISSION_CARDS = [
@@ -33,11 +34,14 @@ export default function Mission() {
           We raise the bar for what a sustainable product looks like
         </h3>
       </FadeInWhenVisible>
-      <div className="flex flex-col gap-4 lg:flex-row">
+      <StaggeredListInView
+        classNameParent="flex flex-col gap-4 lg:flex-row"
+        classNameChildren="flex-1 flex flex-col items-center gap-4 overflow-hidden rounded-2xl border-2 border-main p-10 text-center"
+      >
         {MISSION_CARDS.map(({ id, ...cardProps }) => (
           <Card key={id} {...cardProps} />
         ))}
-      </div>
+      </StaggeredListInView>
     </section>
   );
 }
@@ -52,12 +56,10 @@ function Card({
   content: string;
 }) {
   return (
-    <FadeInWhenVisible className="flex-1">
-      <div className="flex flex-col items-center gap-4 overflow-hidden rounded-2xl border-2 border-main p-10 text-center">
-        <Image src={imgURL} alt={title} width="70" height="70" />
-        <h4 className="font-semibold">{title}</h4>
-        <p className="font-light">{content}</p>
-      </div>
-    </FadeInWhenVisible>
+    <>
+      <Image src={imgURL} alt={title} width="70" height="70" />
+      <h4 className="font-semibold">{title}</h4>
+      <p className="font-light">{content}</p>
+    </>
   );
 }

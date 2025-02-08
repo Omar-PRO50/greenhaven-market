@@ -18,7 +18,10 @@ export default async function MayLike({
   return (
     <div>
       <h2 className="mb-4 text-2xl">You may also like</h2>
-      <StaggeredList className="grid grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-4">
+      <StaggeredList
+        classNameParent="grid grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-4"
+        classNameChildren=""
+      >
         {mayLikeProducts.map((product) => (
           <div key={product.id} className="">
             <Link href={"/product/" + product.name} className="group text-sm">

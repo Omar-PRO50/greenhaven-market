@@ -4,6 +4,7 @@ import Image from "next/image";
 import prisma from "@/lib/prisma";
 import { categories } from "@prisma/client";
 import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
+import { StaggeredListInView } from "@/components/animation/staggeredList";
 
 export default function Categories() {
   return (
@@ -48,16 +49,14 @@ export default function Categories() {
 async function CardsList() {
   const categories = await prisma.categories.findMany();
   return (
-    <div className="flex flex-col items-center lg:flex-row lg:items-start lg:gap-7">
+    <StaggeredListInView
+      classNameParent="flex flex-col items-center lg:flex-row lg:items-start lg:gap-7"
+      classNameChildren="group mb-10 w-full max-w-lg flex-1 lg:max-w-full"
+    >
       {categories.map((category) => (
-        <FadeInWhenVisible
-          key={category.category_id}
-          className="group mb-10 w-full max-w-lg flex-1 lg:max-w-full"
-        >
-          <Card {...category} />
-        </FadeInWhenVisible>
+        <Card key={category.category_id} {...category} />
       ))}
-    </div>
+    </StaggeredListInView>
   );
 }
 

@@ -75,7 +75,11 @@ export default function Slider({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="">
-      <StaggeredList className="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-10 pt-8 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl">
+      <StaggeredList
+        ref={sliderRef}
+        classNameParent="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-10 pt-8 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl"
+        classNameChildren=""
+      >
         {children}
       </StaggeredList>
 
