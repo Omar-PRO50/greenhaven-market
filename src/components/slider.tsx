@@ -1,6 +1,10 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+
+import { Children, useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import FadeInWhenVisible from "./animation/fadeInWhenVisible";
+import StaggeredList from "./animation/staggeredList";
 
 export default function Slider({ children }: { children: React.ReactNode }) {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -71,39 +75,38 @@ export default function Slider({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="">
-      <div
-        ref={sliderRef}
-        className="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-10 pt-8 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl"
-      >
+      <StaggeredList className="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-cont-sm pb-10 pt-8 scrollbar-hide *:snap-start md:scroll-px-8 md:px-cont-md lg:scroll-px-16 lg:px-cont-lg xl:scroll-px-20 xl:px-cont-xl">
         {children}
-      </div>
+      </StaggeredList>
 
       {/* arrows */}
-      <div className="flex justify-center">
-        <button
-          name="slider-next"
-          aria-label="Next slide"
-          onClick={() => scrollByOneSnap("left")}
-          className="transition-transform hover:scale-[1.1] disabled:scale-100 disabled:cursor-not-allowed disabled:text-disabled"
-          disabled={currentScroll + 1 === 1}
-        >
-          <MdKeyboardArrowLeft size={30} />
-        </button>
+      <FadeInWhenVisible>
+        <div className="flex justify-center">
+          <button
+            name="slider-next"
+            aria-label="Next slide"
+            onClick={() => scrollByOneSnap("left")}
+            className="transition-transform hover:scale-[1.1] disabled:scale-100 disabled:cursor-not-allowed disabled:text-disabled"
+            disabled={currentScroll + 1 === 1}
+          >
+            <MdKeyboardArrowLeft size={30} />
+          </button>
 
-        <div className="text-lg">
-          {currentScroll + 1} / {scrollsCount}
+          <div className="text-lg">
+            {currentScroll + 1} / {scrollsCount}
+          </div>
+
+          <button
+            name="slider-prev"
+            aria-label="Previous slide"
+            onClick={() => scrollByOneSnap("right")}
+            className="transition-transform hover:scale-[1.1] disabled:scale-100 disabled:cursor-not-allowed disabled:text-disabled"
+            disabled={currentScroll + 1 === scrollsCount}
+          >
+            <MdKeyboardArrowRight size={30} />
+          </button>
         </div>
-
-        <button
-          name="slider-prev"
-          aria-label="Previous slide"
-          onClick={() => scrollByOneSnap("right")}
-          className="transition-transform hover:scale-[1.1] disabled:scale-100 disabled:cursor-not-allowed disabled:text-disabled"
-          disabled={currentScroll + 1 === scrollsCount}
-        >
-          <MdKeyboardArrowRight size={30} />
-        </button>
-      </div>
+      </FadeInWhenVisible>
     </div>
   );
 }

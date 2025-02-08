@@ -3,20 +3,25 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import Image from "next/image";
 import prisma from "@/lib/prisma";
 import { categories } from "@prisma/client";
+import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
 
 export default function Categories() {
   return (
     <section className="px-cont-sm py-20 text-lg text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
       <div className="mx-auto w-full max-w-max-screen-width">
-        <h3 className="mb-3 text-4xl font-semibold">
-          Explore Our Eco-Friendly Product Categories
-        </h3>
-
-        <p className="mb-10 max-w-[70ch]">
-          At GreenHaven Market, we offer a diverse range of sustainable products
-          designed to enhance your eco-conscious lifestyle. Discover how our
-          carefully curated selections contribute to a healthier planet.
-        </p>
+        <FadeInWhenVisible>
+          <h3 className="mb-3 text-4xl font-semibold">
+            Explore Our Eco-Friendly Product Categories
+          </h3>
+        </FadeInWhenVisible>
+        <FadeInWhenVisible>
+          <p className="mb-10 max-w-[70ch]">
+            At GreenHaven Market, we offer a diverse range of sustainable
+            products designed to enhance your eco-conscious lifestyle. Discover
+            how our carefully curated selections contribute to a healthier
+            planet.
+          </p>
+        </FadeInWhenVisible>
 
         <div className=" ">
           <CardsList />
@@ -45,7 +50,12 @@ async function CardsList() {
   return (
     <div className="flex flex-col items-center lg:flex-row lg:items-start lg:gap-7">
       {categories.map((category) => (
-        <Card key={category.category_id} {...category} />
+        <FadeInWhenVisible
+          key={category.category_id}
+          className="group mb-10 w-full max-w-lg flex-1 lg:max-w-full"
+        >
+          <Card {...category} />
+        </FadeInWhenVisible>
       ))}
     </div>
   );
@@ -53,7 +63,7 @@ async function CardsList() {
 
 function Card({ title, description, name, image_url }: categories) {
   return (
-    <article className="group mb-10 w-full max-w-lg flex-1 lg:max-w-full">
+    <article className="">
       <Link href={`/shop/?category=${name}`}>
         <div className="relative mb-4 aspect-[2/1] overflow-hidden">
           <Image

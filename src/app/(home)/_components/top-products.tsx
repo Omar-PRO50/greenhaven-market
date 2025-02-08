@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import Slider from "@/components/slider";
 import Link from "next/link";
 import Image from "next/image";
+import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
 
 export default async function TopProducts() {
   const products = await prisma.products.findMany({
@@ -11,15 +12,17 @@ export default async function TopProducts() {
 
   return (
     <section className="pt-16 text-main">
-      <header className="mb-5 flex items-end gap-4 px-cont-sm md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
-        <h3 className="text-center text-3xl font-bold">Best Sellers</h3>
-        <Link
-          className="text-lg font-bold underline transition-colors hover:decoration-transparent"
-          href="/shop"
-        >
-          View all
-        </Link>
-      </header>
+      <FadeInWhenVisible>
+        <header className="mb-5 flex items-end gap-4 px-cont-sm md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
+          <h3 className="text-center text-3xl font-bold">Best Sellers</h3>
+          <Link
+            className="text-lg font-bold underline transition-colors hover:decoration-transparent"
+            href="/shop"
+          >
+            View all
+          </Link>
+        </header>
+      </FadeInWhenVisible>
 
       <Slider>
         {products.map((product) => (
@@ -30,6 +33,7 @@ export default async function TopProducts() {
             <Link href={"/product/" + product.name} className="group text-sm">
               <div className="relative mb-2 aspect-square w-full overflow-hidden rounded-md border-2 border-main">
                 <Image
+                  sizes="(min-width: 1280px) 20vw,(min-width: 1024px) 25vw,(min-width: 768px) 33vw,50vw"
                   src={product.image_url}
                   fill
                   alt={product.title}

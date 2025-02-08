@@ -4,6 +4,7 @@ import Header from "@/app/shop/_components/header";
 import Image from "next/image";
 import Link from "next/link";
 import CartBtn from "@/app/shop/_components/cart-btn";
+import StaggeredList from "@/components/animation/staggeredList";
 
 type Sort = "price" | "name" | "id";
 type Order = "asc" | "desc";
@@ -85,11 +86,11 @@ export default async function Page(props: {
 
 function Products({ products }: { products: products[] }) {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <StaggeredList className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
-    </div>
+    </StaggeredList>
   );
 }
 
