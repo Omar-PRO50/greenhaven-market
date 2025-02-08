@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center gap-10 p-cont-sm text-main md:p-cont-md lg:p-cont-lg xl:p-cont-xl">
+    <main className="flex flex-col items-center justify-center gap-10 p-cont-sm text-main md:p-cont-md lg:p-cont-lg xl:p-cont-xl">
       {/* 🌱 Leaf Icon */}
       <div className="text-main-light">404 Error</div>
       <div className="flex items-center space-x-2">
@@ -22,6 +22,6 @@ export default function NotFound() {
       >
         Go Back Home
       </Link>
-    </div>
+    </main>
   );
 }

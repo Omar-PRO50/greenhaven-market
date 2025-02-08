@@ -1,3 +1,5 @@
+"use server";
+
 import articles from "@/data/articles.json";
 
 export async function getLatestArticles() {

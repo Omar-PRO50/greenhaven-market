@@ -1,3 +1,5 @@
+"use server";
+
 type State = {
   message: string;
   success: boolean;
