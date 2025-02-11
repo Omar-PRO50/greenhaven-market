@@ -9,7 +9,7 @@ export default async function Page() {
   return (
     <main className="">
       <Hero />
-      <section className="bg-main p-cont-sm text-center text-3xl font-semibold text-white md:p-cont-md lg:p-cont-lg xl:p-cont-xl">
+      <section className="bg-main px-cont-sm py-10 text-center text-3xl font-semibold text-white md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
         <FadeInWhenVisible>
           <h2 className="m-auto max-w-[49ch]">
             Our products are safe, minimal, and easy on the planet. They last

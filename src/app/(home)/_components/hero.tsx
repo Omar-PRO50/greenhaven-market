@@ -3,7 +3,7 @@ import Image from "next/image";
 import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[40rem] flex-col items-center bg-background px-cont-sm pt-28 text-center text-main md:bg-transparent md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
+    <section className="relative flex min-h-[40rem] flex-col items-center px-cont-sm pt-28 text-center text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
       <FadeInWhenVisible>
         <h3 className="mb-3 max-w-[27ch] text-4xl font-bold">
           Welcome to GreenHaven Market - Shop Sustainably
@@ -21,17 +21,17 @@ export default function Hero() {
         </Link>
       </FadeInWhenVisible>
 
-      {/* <div className="absolute inset-0 -z-10 hidden md:block">
+      <div className="absolute inset-0 -z-10">
         <Image
-          sizes="(min-width: 768px) 100vw, 0vw"
+          sizes="100vw"
           src="/hero-image.jpg"
           alt="Background"
           fill
-          className="-scale-x-100 object-cover object-[50%_35%] brightness-[1.4]"
+          className="object-cover brightness-[1.4]"
           priority
           quality={100}
         />
-      </div> */}
+      </div>
     </section>
   );
 }

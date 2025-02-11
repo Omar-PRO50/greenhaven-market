@@ -19,7 +19,7 @@ export default function StaggeredList({
       ref={ref}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: 0.2 }}
       variants={{
         visible: { transition: { staggerChildren: 0.05 } }, // Stagger animation
       }}
@@ -61,7 +61,7 @@ export function StaggeredListInView({
           key={i}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }} // 👈 Each child animates when it enters the viewport
+          viewport={{ once: true, amount: 0.2 }} // 👈 Each child animates when it enters the viewport
           variants={{
             hidden: { opacity: 0, y: 20 }, // Start hidden & slightly below
             visible: { opacity: 1, y: 0 }, // Animate upwards & appear
