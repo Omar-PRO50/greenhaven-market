@@ -32,6 +32,7 @@ export async function signup(formData: FormData) {
     return error;
   }
 
+  console.log("User =>: ", user);
   const { data: profileData, error: profileError } = await supabase
     .from("profiles")
     .insert([{ id: user!.id, first_name: firstName, last_name: lastName }]);
