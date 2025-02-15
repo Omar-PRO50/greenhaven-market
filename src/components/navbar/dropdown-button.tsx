@@ -1,15 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { DropdownContext } from "@/context/navbar-context";
 import { LuAlignJustify } from "react-icons/lu";
 import { PiX } from "react-icons/pi";
+import UserButton from "./user-button";
 
 export default function DropdownButton({}) {
   const menu = useContext(DropdownContext);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (menu?.isMenuOpen) {
+      setHeight(dropdownRef.current!.scrollHeight); // Get content height
+    } else {
+      setHeight(0); // Collapse
+    }
+  }, [menu]);
 
   const toggleMenu = () => {
     menu!.setIsMenuOpen(!menu!.isMenuOpen);
@@ -36,8 +46,6 @@ export default function DropdownButton({}) {
   const Links = [
     { name: "Shop", href: "/shop" },
     { name: "Blog", href: "/blog" },
-    { name: "Log In", href: "/login" },
-    { name: "Sign Up", href: "/signup" },
   ];
 
   return (
@@ -63,13 +71,11 @@ export default function DropdownButton({}) {
       {/* Dropdown */}
       <ul
         ref={dropdownRef}
-        style={{ top: "calc(100% - 1px)" }}
-        className={`absolute left-0 z-10 block w-screen overflow-y-hidden bg-background text-center shadow-md transition-[max-height] duration-500 navbar:hidden ${
-          menu!.isMenuOpen ? "max-h-64" : "max-h-0"
-        }`}
+        style={{ top: "calc(100% - 1px)", height: height }}
+        className={`absolute left-0 z-10 block w-screen overflow-y-hidden bg-background text-center text-lg shadow-md transition-[height] duration-500 navbar:hidden`}
       >
         {Links.map((link) => (
-          <li key={link.name} className="py-4 text-lg">
+          <li key={link.name} className="py-4">
             <Link
               onClick={() => {
                 menu!.setIsMenuOpen(false);
@@ -81,6 +87,9 @@ export default function DropdownButton({}) {
             </Link>
           </li>
         ))}
+        <li className="py-4">
+          <UserButton isDropdown />
+        </li>
       </ul>
     </>
   );
