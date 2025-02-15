@@ -29,7 +29,7 @@ export default function Footer() {
             <Link href="/policies/cookies-settings">Cookies Settings</Link>
           </div>
           <small className="">
-            © 2024 GreenHaven Market. All rights reserved.
+            © 2025 GreenHaven Market. All rights reserved.
           </small>
         </div>
       </div>
