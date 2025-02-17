@@ -1,18 +1,28 @@
-import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Product from "@/app/product/_components/product";
 import MayLike from "../_components/may-like";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function Page({
   params,
 }: {
   params: Promise<{ name: string }>;
 }) {
+  const supabase = await createClient();
   const name = (await params).name;
-  const product = await prisma.products.findUnique({ where: { name: name } });
+  const { data: product, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("name", name)
+    .maybeSingle();
 
   //when to reject the product
+  if (error) {
+    console.log("Error finding product", error);
+    notFound();
+  }
   if (!product) {
+    console.log("product doenst exist");
     notFound();
   }
 

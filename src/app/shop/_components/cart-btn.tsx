@@ -1,13 +1,9 @@
 "use client";
 
 import { useCart } from "@/context/cart-context";
-import { SerializedProductType } from "@/types/prism-product";
+import { Tables } from "@/types/database.types";
 
-export default function CartBtn({
-  product,
-}: {
-  product: SerializedProductType;
-}) {
+export default function CartBtn({ product }: { product: Tables<"products"> }) {
   const { updateQuantity, cart } = useCart();
 
   return (

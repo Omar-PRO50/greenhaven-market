@@ -11,7 +11,7 @@ import { usePortal } from "@/hooks/usePortal";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/context/cart-context";
-import { SerializedProductType } from "@/types/prism-product";
+import { CartItem } from "@/types/cart";
 
 export default function CartButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -126,9 +126,6 @@ function Cart({
       </div>
     </div>
   );
-}
-interface CartItem extends SerializedProductType {
-  orderQuantity: number;
 }
 
 function Product({ product }: { product: CartItem }) {

@@ -17,7 +17,7 @@ async function signUpAction(
   console.log("signing in");
   //todo: client side validation
   const error = await signup(formData);
-  return { success: false, message: error.message };
+  return { success: false, message: error };
 }
 
 export default function Page() {
@@ -43,7 +43,7 @@ export default function Page() {
             <button
               disabled={isPending}
               type="submit"
-              className="w-max rounded-3xl bg-main px-10 py-3 text-white hover:scale-[1.01] focus:scale-[1.01] disabled:bg-disabled"
+              className="w-max rounded-3xl bg-main px-10 py-3 text-white hover:scale-[1.01] focus:scale-[1.01] disabled:bg-disabled disabled:hover:scale-[1] disabled:focus:scale-[1]"
             >
               Create
             </button>

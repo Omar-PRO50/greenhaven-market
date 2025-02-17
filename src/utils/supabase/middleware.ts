@@ -1,3 +1,4 @@
+import { Database } from "@/types/database.types";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -6,7 +7,7 @@ export async function updateSession(request: NextRequest) {
     request,
   });
 
-  const supabase = createServerClient(
+  const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -40,6 +41,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (user) {
+    console.log("user");
     //loged in => prevent from requesting login and signup
     if (
       request.nextUrl.pathname.startsWith("/account/login") ||
@@ -54,6 +56,7 @@ export async function updateSession(request: NextRequest) {
   } else {
     //no user => protect routes
     if (request.nextUrl.pathname === "/account") {
+      console.log("no user");
       const url = request.nextUrl.clone();
       url.pathname = "/account/login";
       return NextResponse.redirect(url);

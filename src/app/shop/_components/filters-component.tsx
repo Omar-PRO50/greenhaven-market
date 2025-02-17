@@ -3,15 +3,15 @@ import PriceComponent from "./filters/price-component";
 import CategoryComponent from "./filters/category-component";
 import ShowOutofstockComponent from "./filters/show-outofstock-component";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { categories } from "@prisma/client";
 import { useState } from "react";
 import CancelFiltersandSort from "./cancel-filters-and-sort";
+import { Tables } from "@/types/database.types";
 
 export default function FiltersComponent({
   categories,
   highestPrice,
 }: {
-  categories: Pick<categories, "category_id" | "name" | "title">[];
+  categories: Pick<Tables<"categories">, "category_id" | "name" | "title">[];
   highestPrice: number;
 }) {
   const [isOpen, setIsOpen] = useState(false);

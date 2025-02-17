@@ -1,9 +1,8 @@
-import { products } from "@prisma/client";
 import Image from "next/image";
 import CartBtn from "./cart-btn";
 import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
 
-export default function Product({ product }: { product: products }) {
+export default function Product({ product }: { product: any }) {
   return (
     <div className="flex flex-col gap-10 md:flex-row">
       {/* Sticky Image */}

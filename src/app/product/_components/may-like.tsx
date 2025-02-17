@@ -1,5 +1,5 @@
 import StaggeredList from "@/components/animation/staggeredList";
-import prisma from "@/lib/prisma";
+import { createClient } from "@/utils/supabase/server";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,10 +10,18 @@ export default async function MayLike({
   productId: number;
   categoryId: number;
 }) {
-  const mayLikeProducts = await prisma.products.findMany({
-    where: { category_id: categoryId, id: { not: productId } },
-    take: 4,
-  });
+  const supabase = await createClient();
+  const { data: mayLikeProducts, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("category_id", categoryId)
+    .neq("id", productId)
+    .limit(4);
+
+  if (error) {
+    console.error("Error fetching related products:", error);
+    return;
+  }
 
   return (
     <div>

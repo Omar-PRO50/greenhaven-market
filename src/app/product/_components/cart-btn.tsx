@@ -1,15 +1,11 @@
 "use client";
 
 import { useCart } from "@/context/cart-context";
-import { SerializedProductType } from "@/types/prism-product";
+import { Tables } from "@/types/database.types";
 import { useState } from "react";
 import { PiPlusBold, PiMinusBold } from "react-icons/pi";
 
-export default function CartBtn({
-  product,
-}: {
-  product: SerializedProductType;
-}) {
+export default function CartBtn({ product }: { product: Tables<"products"> }) {
   const { updateQuantity, cart } = useCart();
   const item = cart.find((cartItem) => cartItem.id === product.id);
   const [quantity, setQuantity] = useState(1);

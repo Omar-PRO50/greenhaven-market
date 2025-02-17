@@ -1,6 +1,6 @@
 import SortbyComponent from "./sortby-component";
-import prisma from "@/lib/prisma";
 import FiltersComponent from "./filters-component";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function Header({
   productsCount,
@@ -11,10 +11,13 @@ export default async function Header({
   filterProductsCount: number;
   highestPrice: number;
 }) {
-  const categories = await prisma.categories.findMany({
-    select: { name: true, title: true, category_id: true },
-  });
-
+  const supabase = await createClient();
+  const { data: categories, error } = await supabase
+    .from("categories")
+    .select("name, title, category_id");
+  if (error) {
+    console.log("Error fetching categories in filter", error);
+  }
   return (
     <div className="space-y-2">
       <div className="flex justify-between">
@@ -26,7 +29,7 @@ export default async function Header({
         </span>
         <SortbyComponent />
       </div>
-      <FiltersComponent categories={categories} highestPrice={highestPrice} />
+      <FiltersComponent categories={categories!} highestPrice={highestPrice} />
     </div>
   );
 }

@@ -1,14 +1,18 @@
-import prisma from "@/lib/prisma";
 import Slider from "@/components/slider";
 import Link from "next/link";
 import Image from "next/image";
 import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function TopProducts() {
-  const products = await prisma.products.findMany({
-    where: { quantity: { gt: 0 } },
-    take: 7,
-  });
+  const supabase = await createClient();
+  const { data: products, error } = await supabase
+    .from("products")
+    .select("*")
+    .gt("quantity", 0)
+    .limit(7);
+
+  if (error) return;
 
   return (
     <section className="pt-16 text-main">

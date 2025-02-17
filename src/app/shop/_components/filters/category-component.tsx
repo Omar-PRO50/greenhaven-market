@@ -1,12 +1,12 @@
 "use client";
-import { categories } from "@prisma/client";
+import { Tables } from "@/types/database.types";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CategoryComponent({
   categories,
 }: {
-  categories: Pick<categories, "category_id" | "name" | "title">[];
+  categories: Pick<Tables<"categories">, "category_id" | "name" | "title">[];
 }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();

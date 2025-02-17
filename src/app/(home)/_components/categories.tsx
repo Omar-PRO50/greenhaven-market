@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Image from "next/image";
-import prisma from "@/lib/prisma";
-import { categories } from "@prisma/client";
 import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
 import { StaggeredListInView } from "@/components/animation/staggeredList";
+import { createClient } from "@/utils/supabase/server";
+import { Tables } from "@/types/database.types";
 
 export default function Categories() {
   return (
@@ -47,7 +47,16 @@ export default function Categories() {
 }
 
 async function CardsList() {
-  const categories = await prisma.categories.findMany();
+  const supabase = await createClient();
+  const { data: categories, error } = await supabase
+    .from("categories")
+    .select("*");
+
+  if (error) {
+    console.log("Error fetching Categories List", error);
+    return;
+  }
+
   return (
     <StaggeredListInView
       classNameParent="flex flex-col items-center lg:flex-row lg:items-start lg:gap-7"
@@ -60,7 +69,7 @@ async function CardsList() {
   );
 }
 
-function Card({ title, description, name, image_url }: categories) {
+function Card({ title, description, name, image_url }: Tables<"categories">) {
   return (
     <article className="">
       <Link href={`/shop/?category=${name}`}>

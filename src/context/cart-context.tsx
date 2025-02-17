@@ -1,6 +1,6 @@
 "use client";
-
-import { SerializedProductType } from "@/types/prism-product";
+import { CartItem } from "@/types/cart";
+import { Tables } from "@/types/database.types";
 import {
   createContext,
   useContext,
@@ -9,15 +9,11 @@ import {
   ReactNode,
 } from "react";
 
-interface CartItem extends SerializedProductType {
-  orderQuantity: number;
-}
-
 interface CartContextType {
   cart: CartItem[];
-  removeItem: (item: SerializedProductType) => void;
+  removeItem: (item: Tables<"products">) => void;
   updateQuantity: (
-    item: SerializedProductType,
+    item: Tables<"products">,
     type: "inc" | "dec",
     num: number,
   ) => void;
@@ -43,14 +39,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const removeItem = (item: SerializedProductType) => {
+  const removeItem = (item: Tables<"products">) => {
     setCart((prevCart) => {
       return prevCart.filter((i) => i.id !== item.id);
     });
   };
 
   const updateQuantity = (
-    item: SerializedProductType,
+    item: Tables<"products">,
     type: "inc" | "dec",
     num: number,
   ) => {

@@ -1,12 +1,10 @@
-import prisma from "@/lib/prisma";
-import { products } from "@prisma/client";
 import Header from "@/app/shop/_components/header";
 import Image from "next/image";
 import Link from "next/link";
 import CartBtn from "@/app/shop/_components/cart-btn";
-import StaggeredList, {
-  StaggeredListInView,
-} from "@/components/animation/staggeredList";
+import { StaggeredListInView } from "@/components/animation/staggeredList";
+import { Tables } from "@/types/database.types";
+import { createClient } from "@/utils/supabase/server";
 
 type Sort = "price" | "name" | "id";
 type Order = "asc" | "desc";
@@ -24,42 +22,76 @@ export default async function Page(props: {
 }) {
   const searchParams = await props.searchParams;
 
-  const selectedSort = searchParams?.sort_by || "";
-  const selectedOrder: Order = searchParams?.order !== "desc" ? "asc" : "desc";
-  const orderOption: Partial<Record<Sort, Order>> = {};
-  if (selectedSort && validSortFields.has(selectedSort as Sort))
-    orderOption[selectedSort as Sort] = selectedOrder;
-  else orderOption.id = selectedOrder;
+  // Initialize Supabase client
+  const supabase = await createClient();
 
-  //Number([|| undefined] means => if '' return undefined because Number('') = 0 and Number(undefined) = NaN)
+  // Build query
+  let query = supabase.from("products").select("*");
+  let priceQuery = supabase.from("products").select("price");
+
+  // Stock filter
+  const showOutOfStock = searchParams?.show_outofstock === "true";
+  if (!showOutOfStock) {
+    query = query.gt("quantity", 0);
+    priceQuery = priceQuery.gt("quantity", 0);
+  }
+
+  // Price filter
   const minPrice = Number(searchParams?.minimumPrice || undefined);
   const maxPrice = Number(searchParams?.maximumPrice || undefined);
-  const priceFilter: { gte?: number; lte?: number } = {};
-  if (!Number.isNaN(minPrice)) priceFilter.gte = minPrice;
-  if (!Number.isNaN(maxPrice)) priceFilter.lte = maxPrice;
+  if (!Number.isNaN(minPrice)) {
+    query = query.gte("price", minPrice);
+    priceQuery = priceQuery.gte("price", minPrice);
+  }
+  if (!Number.isNaN(maxPrice)) {
+    query = query.lte("price", maxPrice);
+    priceQuery = priceQuery.lte("price", maxPrice);
+  }
 
+  // Category filter
   const selectedCategory = searchParams?.category;
-  const categoryFilter: { name?: string } = {};
-  if (selectedCategory) categoryFilter.name = selectedCategory;
+  if (selectedCategory) {
+    query = query.eq("category", selectedCategory);
+    priceQuery = priceQuery.eq("category", selectedCategory);
+  }
 
-  const show_outofstock = searchParams?.show_outofstock || "";
-  const outofstockOption: { gt?: 0 } = {};
-  if (show_outofstock !== "true") outofstockOption.gt = 0;
+  //get highest price
+  const { data: highestPriceRow, error: highestPriceError } = await priceQuery
 
-  const products = await prisma.products.findMany({
-    where: {
-      price: priceFilter,
-      category: categoryFilter,
-      quantity: outofstockOption,
-    },
-    orderBy: orderOption,
-  });
-  const productsCount = await prisma.products.count({
-    where: { quantity: outofstockOption },
-  });
-  const highestPrice = Math.max(
-    ...products.map((product) => Number(product.price)),
-  );
+    .order("price", { ascending: false }) // Sort by price in descending order
+    .limit(1) // Fetch only the first row
+    .maybeSingle(); // Expect a single row
+
+  if (highestPriceError) {
+    console.error("Error fetching highest price:", highestPriceError);
+  }
+
+  const highestPrice = highestPriceRow?.price || 0; // Default to 0 if no rows exist
+
+  // Sorting
+  const selectedSort = validSortFields.has(searchParams?.sort_by as Sort)
+    ? (searchParams?.sort_by as Sort)
+    : "id";
+  const selectedOrder: Order = searchParams?.order === "desc" ? "desc" : "asc";
+  query = query.order(selectedSort, { ascending: selectedOrder === "asc" });
+
+  const { data: products, error } = await query;
+
+  if (error) {
+    console.log("Error fetching Porducts", error);
+    return;
+  }
+
+  // Get total count (excluding price/category filters per original logic)
+  let countQuery = supabase
+    .from("products")
+    .select("*", { count: "exact", head: true });
+  if (!showOutOfStock) countQuery = countQuery.gt("quantity", 0);
+  const { count: productsCount, error: countError } = await countQuery;
+
+  if (countError) {
+    console.log("Error counting Porducts", countError);
+  }
 
   return (
     <main className="mb-16 px-cont-sm text-main md:px-cont-md lg:px-cont-lg xl:px-cont-xl">
@@ -76,7 +108,7 @@ export default async function Page(props: {
         <section className="space-y-5">
           <Header
             filterProductsCount={products.length}
-            productsCount={productsCount}
+            productsCount={productsCount || 0}
             highestPrice={highestPrice}
           />
           <Products products={products} />
@@ -86,7 +118,7 @@ export default async function Page(props: {
   );
 }
 
-function Products({ products }: { products: products[] }) {
+function Products({ products }: { products: Tables<"products">[] }) {
   return (
     <StaggeredListInView
       classNameParent="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
@@ -99,7 +131,7 @@ function Products({ products }: { products: products[] }) {
   );
 }
 
-function ProductCard({ product }: { product: products }) {
+function ProductCard({ product }: { product: Tables<"products"> }) {
   const { name, price, image_url, title, quantity } = product;
   const isOutOfStock = quantity === 0;
 
@@ -129,7 +161,7 @@ function ProductCard({ product }: { product: products }) {
         </div>
         <div>${price.toFixed(2)} USD</div>
       </Link>
-      <CartBtn product={{ ...product, price: product.price.toNumber() }} />
+      <CartBtn product={{ ...product, price: product.price }} />
     </div>
   );
 }
