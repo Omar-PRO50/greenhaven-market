@@ -1,8 +1,9 @@
 import Image from "next/image";
 import CartBtn from "./cart-btn";
 import FadeInWhenVisible from "@/components/animation/fadeInWhenVisible";
+import { Tables } from "@/types/database.types";
 
-export default function Product({ product }: { product: any }) {
+export default function Product({ product }: { product: Tables<"products"> }) {
   return (
     <div className="flex flex-col gap-10 md:flex-row">
       {/* Sticky Image */}
@@ -20,7 +21,7 @@ export default function Product({ product }: { product: any }) {
         <div className="space-y-3">
           <h1 className="text-3xl">{product.title}</h1>
           <p> ${product.price.toFixed(2)} USD</p>
-          <CartBtn product={{ ...product, price: product.price.toNumber() }} />
+          <CartBtn product={{ ...product, price: product.price }} />
           <div>
             <h6 className="font-medium text-main-lightT underline">OVERVIEW</h6>
             <p className="text-sm text-main-lightT">{product.description}</p>
